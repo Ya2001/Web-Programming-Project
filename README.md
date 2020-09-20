@@ -20,6 +20,5 @@
 
 - came up with name for the game: "Drop Guys"
 - first draft
-![first draft](https://github.com/Ya2001/Web-Programming-Project/edit/master/images/draft_1.png)
 
-
+![first draft](./images/draft_1.png)
