@@ -16,5 +16,10 @@
 
 ## Progress and Documentation
 
+**2020-09-20**
+
+- came up with name for the game: "Drop Guys"
+- first draft
+![first draft](https://github.com/Ya2001/Web-Programming-Project/edit/master/images/draft_1.png)
 
 
