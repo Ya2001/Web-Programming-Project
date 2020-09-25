@@ -1,7 +1,46 @@
-Hello
+<html lang = "en">
 
-<script src="/socket.io/socket.io.js"></script>
-
+<head>
+    <meta charset="UTF-8">
+    <title>Drop Guys</title>
+    <style>
+        #canvas{
+            outline: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+</body>
+<canvas id="canvas" height="720", width="800"></canvas>
 <script>
-var socket = io();
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+
+    var xPos = 400;
+    var yPos = 670;
+
+    context.rect(xPos, yPos, 50, 50);
+    context.stroke();
+    function move(e){
+
+        if(e.keyCode==39){
+            xPos+=5;
+
+        }
+        if(e.keyCode==37){
+            xPos+=-5;
+
+        }
+
+        canvas.width= canvas.width
+        context.rect(xPos, yPos, 50, 50);
+        context.stroke();
+    }
+
+    document.onkeydown = move;
 </script>
+<script src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+    var socket = io();
+</script>
+</html>
