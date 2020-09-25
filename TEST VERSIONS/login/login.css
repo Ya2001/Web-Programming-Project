@@ -1,4 +1,4 @@
-#login{	
+#login_button{	
 		font-weight: bold;
 		float: right;
 		 font-family:'Roboto',sans-serif;
@@ -12,6 +12,38 @@
 		height: 50px;
 
 }
-#login:hover{
+#login_button:hover{
 	background-color: yellow;
+}
+
+.register
+{
+	float: right;
+	margin-top: 170px;
+	margin-right: 250px;
+}
+
+.login
+{
+	float: left;
+	margin-top: 170px;
+	margin-left: 90px;
+}
+
+.vertical { 
+    border-right: 3px solid black; 
+    height: 70vh; 
+    position: absolute;
+    margin-left: 700px;
+    margin-top: 100px;
+        }
+
+#login_text
+{
+	color: green; 
+}
+
+
+#uname{
+
 }
