@@ -1,0 +1,63 @@
+* {
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    height: 100%; 
+    width: 100%; 
+}
+
+/* the "world" the players and obstacles are in, 90vh/vw sets the world to 90% of the screenheight/width */
+.canvas {
+    width: 90vw; 
+    height: 90vh;
+    margin: auto; margin-top: 5vh;   
+    border: 2px solid black; 
+    overflow: hidden;
+    position: relative;
+}
+
+/* styling the players */ 
+.player {
+    height: 10vh; 
+    width: 10vw; 
+    border: 2px solid black; 
+    position: relative; 
+    top: 80vh; 
+}
+
+/* styling the obstacles */ 
+.obstacle {
+    height: 10vh; 
+    width: 30vh; 
+    position: absolute;
+    top: -15vh;  
+    border: 5px solid #ffa500;
+}
+
+/* animation-class for the obstacle, that will be added to the class when play is pressed */ 
+.obstacle-animation {
+    animation-name: obstacle-animation; 
+    animation-duration: 3s;  
+    animation-timing-function: linear; 
+    animation-fill-mode: forwards; 
+}
+
+@keyframes obstacle-animation {
+    0% {top: -11vh}
+    100% {top: 100%}
+}
+
+.startButton {
+    position: relative;
+    margin-left: 50vw;  
+    padding: 5px; 
+}
+.stopButton {
+    position: relative; 
+    padding: 5px; 
+}
+
+
+
