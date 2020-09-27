@@ -35,3 +35,9 @@ Goals for the next meeting:
 **general style of game:**  
 
 ![style inspo](./images/style_inspo.png)
+
+
+### 2020-09-27
+
+Finished the front-end of the login/signup page. (Áron)
+images/login.PNG
