@@ -40,4 +40,4 @@ Goals for the next meeting:
 ### 2020-09-27
 
 Finished the front-end of the login/signup page. (Áron)
-![login_design](./images/login.PNG)   
+![login_design](./images/login.PNG)    #10F75D
