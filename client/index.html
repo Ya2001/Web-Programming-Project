@@ -1,7 +1,67 @@
-Hello
+<html lang = "en">
 
-<script src="/socket.io/socket.io.js"></script>
-
+<head>
+    <meta charset="UTF-8">
+    <title>Drop Guys</title>
+    <style>
+        #game{
+            width: 800;
+            height:700;
+            outline: 1px solid black;
+        }
+        #character{
+            width:50px;
+            height: 50px;
+            position: relative;
+            left:350px;
+            bottom: 50px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+</body>
+<div id = "game"></div>
+    <div id = character></div>
 <script>
-var socket = io();
+var character = document.getElementById("character");
+var interval;
+var both = 0;
+
+
+function moveLeft(){
+    var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+    if(left>0){
+        character.style.left = left - 3 + "px";
+    }
+}
+function moveRight(){
+    var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+    if(left<380){
+        character.style.left = left + 3 + "px";
+    }
+}
+document.addEventListener("keydown", event => {
+    if(both==0){
+        both++;
+        if(event.keyCode===37){
+            interval = setInterval(moveLeft, 1);
+        }
+        if(event.keyCode===39){
+            interval = setInterval(moveRight, 1);
+        }
+    }
+});
+document.addEventListener("keyup", event => {
+    clearInterval(interval);
+    both=0;
+});
+
 </script>
+<script src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+    var socket = io();
+</script>
+</html>
+
+
