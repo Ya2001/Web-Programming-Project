@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="login.css">
+	<title>Login</title>
+
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+	<script src="login.js"></script>
+</head>
+<body class="login_page">
+
+
+<div class="login">
+	<form action="login.html">
+    <h1 id="main_text">Login</h1>
+
+    <label for="uname"><b id="login_page_text">Username</b></label>
+    <br>
+    <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
+    <br>
+
+    <label for="pwd"><b id="login_page_text">Password</b></label>
+    <br>
+    <input id="pwd" type="password" placeholder="Enter Password" name="pwd" required>
+    <br>
+
+     <a href="login.html">
+     <button id="submit" type="submit">Login</button>
+     </a>
+ 	</form>
+ </div>
+
+
+<dir class="vertical"></dir>
+
+<div class="register">
+    <h1 id="main_text">Register</h1>
+
+	<form action="login.html">
+	    <label for="uname"><b id="login_page_text">Username</b></label>
+	    <br>
+	    <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
+	    <br>
+
+	    <label for="pwd"><b id="login_page_text">Password</b></label>
+
+	    <br>
+	    <input id="pwd" type="password" placeholder="Enter Password" name="pwd" required>
+	    <br>
+
+	    <label for="pwd"><b id="login_page_text">Repeat Password</b></label>
+	    <br>
+	    <input id="pwd" type="password" placeholder="Repeat Password" name="pwd" required>
+	    <br>
+
+	    <a href="login.html">
+	    <button id="submit" type="submit">Register</button>
+	    </a>
+
+	</form>
+
+
+ </div>
+
+
+</body>
+</html>
