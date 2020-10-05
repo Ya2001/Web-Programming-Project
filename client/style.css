@@ -1,13 +1,9 @@
-/* game-specific variables like colours & sizes
-if changing the width or height, don't forget to also change in script.js */
+/* game-specific variables like colours & sizes */
 :root {
-    --canvas-width: 97vw; 
+    --canvas-width: 95vw; 
     --canvas-height: 90vh; 
-    --accent-colour-lblue: #8ecae6; 
-    --accent-colour-blue: #219ebc; 
-    --accent-colour-dblue: #023047; 
-    --accent-colour-yellow: #ffb703; 
-    --accent-colour-orange: #fb8500; 
+    --accent-colour-purple: #2d005c; 
+    --accent-colour-blue: rgb(0, 138, 156); 
     --font: 'Verdana'; 
 }
 
@@ -19,10 +15,10 @@ if changing the width or height, don't forget to also change in script.js */
 body {
     height: 98%; 
     width: 100%; 
-    /* background-image: linear-gradient(to bottom, #97f9f9, #a4def9, #c1e0f7, #cfbae1, 
-    #c59fc9); */
-    background-color: white; 
+    background-image: linear-gradient(to bottom, #97f9f9, #a4def9, #c1e0f7, #cfbae1, 
+    #c59fc9); 
 }
+
 /* the "world" the players and obstacles are in, 90vh/vw sets the world to 90% of the screenheight/width */
 .canvas {
     width: var(--canvas-width); 
@@ -30,10 +26,8 @@ body {
     margin: auto; margin-top: 2vh; 
     overflow: hidden;
     position: relative;
-    border: 3px solid var(--accent-colour-blue); 
-    /* background-image: linear-gradient(to top, rgba(61,199,1,0.5), rgba(3,159,1,0.5), 
-    rgba(13,170,63,0.5) 30%, rgba(0,212,255,0.5) 100%); */
-    background-color:  rgba(33, 157, 188, 0.253); 
+    border: 5px solid var(--accent-colour-purple); 
+    background-color: rgb(255, 255, 255, 0.5); 
     border-radius: 10px; 
 }
 
@@ -47,7 +41,14 @@ body {
     visibility: hidden; 
 }
 
-
+/* styling the obstacles */ 
+.obstacle {
+    height: 10vh; 
+    width: 30vh; 
+    position: absolute;
+    top: -15vh;  
+    border: 5px solid #ffa500;
+}
 
 /* animation-class for the obstacle, that will be added to the class when play is pressed */ 
 .obstacle-animation {
@@ -58,14 +59,14 @@ body {
 }
 
 @keyframes obstacle-animation {
-    0% {top: -50vh}
+    0% {top: -11vh}
     100% {top: 100%}
 }
 
 .controls {
     width: 20%; 
-    margin: auto;
-    padding: 8px;  
+    margin: auto; 
+    padding: 5px;  
     display: flex; 
     justify-content: space-evenly;
 }
@@ -74,13 +75,13 @@ body {
     padding: 5px;
     width: 40%; 
     border-radius: 30px; 
-    border: 3px solid var(--accent-colour-orange); 
+    border: 3px solid var(--accent-colour-purple); 
     background-color: transparent; 
     font-family: var(--font);
     font-size: 1vw;
     text-transform: uppercase;
     font-weight: bold;
-    color: var(--accent-colour-orange);
+    color: var(--accent-colour-purple);
 }
 
 .startButton:focus, .stopButton:focus {
@@ -88,12 +89,12 @@ body {
 }
 
 .startButton:hover, .stopButton:hover {
-    background-color: var(--accent-colour-orange);
+    background-color: var(--accent-colour-purple);
     color: white; 
 }
 
 .startButton:focus, .stopButton:focus {
-    background-color: var(--accent-colour-yellow); 
+    background-color: var(--accent-colour-blue); 
     color: white;
     border: none; 
 }
