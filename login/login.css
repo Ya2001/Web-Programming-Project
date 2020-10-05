@@ -1,0 +1,95 @@
+.login_page
+{
+	background-color: black;
+	font-family:sans-serif; ;
+
+}
+
+#login_button{	
+		font-weight: bold;
+		float: right;
+		font-family:'Roboto',sans-serif;
+		border-radius: 12px;
+		background-color: #10F75D;
+		width: 200px;
+		font-size: 20px;
+		font-weight: bold;	
+		margin-bottom: 10px;
+		border-color: #000000;
+		height: 50px;
+
+}
+#login_button:hover, #submit:hover{
+	background-color: yellow;
+}
+
+.register
+{
+	float: right;
+	margin-top: 60px;
+	margin-right: 40vh;
+	color: white;
+}
+
+.login
+{
+	float: left;
+	margin-top: 60px;
+	margin-left: 33vh;
+	color: white;
+}
+
+.vertical { 
+    border-right: 3px solid white; 
+    height: 70vh; 
+    position: absolute;
+    margin-left: 100vh;
+    margin-top: 100px;
+        }
+
+#login_page_text
+{
+	color: green; 
+	font-size: 30px;
+}
+
+
+#uname{
+
+	margin-bottom: 40px;
+	width: 250px;
+	height: 35px;
+	border-radius: 12px;
+	font-size: 20px;
+}
+
+#uname_text
+{
+	font-size: 30px;
+}
+
+#pwd
+{
+	margin-bottom: 40px;
+	width: 250px;
+	height: 35px;
+	border-radius: 12px;
+	font-size: 20px;
+}
+
+#main_text
+{
+	font-size: 70px;
+}
+#submit
+{
+	font-size: 20px;
+	background-color: #10F75D;
+	width: 200px;
+	height: 50px;
+	position: absolute;
+	margin-left: 140px;
+	margin-top: 10px;
+	border-radius: 12px;
+	font-weight: bold;
+}
