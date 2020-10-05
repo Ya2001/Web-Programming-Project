@@ -14,7 +14,19 @@ var level = 4;
 
 // array for the colours used in the game
 // used in createObstacle
-var colours = ["#ffa500", "#3cb371", "#6a5acd", "#ee82ee"];
+var lblue = window.getComputedStyle(document.documentElement).getPropertyValue('--accent-colour-lblue');
+var blue = window.getComputedStyle(document.documentElement).getPropertyValue('--accent-colour-blue');
+var dblue = window.getComputedStyle(document.documentElement).getPropertyValue('--accent-colour-dblue');
+var yellow = window.getComputedStyle(document.documentElement).getPropertyValue('--accent-colour-yellow');
+var orange = window.getComputedStyle(document.documentElement).getPropertyValue('--accent-colour-orange');
+var colours = [lblue, blue, dblue, yellow, orange];
+
+
+// width & height of canvas 
+// can't grab them from css since they're saved as strings there 
+var canvasWidth = 98; //vw
+var canvasHeight = 90; //vh
+
 
 // global variable for window.setInterval: saves the intervalID from startGame() so it can be later 
 // removed in stopGame()
@@ -60,6 +72,7 @@ function startGame() {
 function addObstacle() {
     //create a new obstacle
     createObstacle();
+    createPoliticans();
 
     // add the CSS animation to every obstacle that is created
     obstacleArray = document.getElementsByClassName("obstacle");
@@ -68,7 +81,26 @@ function addObstacle() {
         obstacleArray[i].classList.add("obstacle-animation");
     }
 }
+function createPoliticans() {
+    var width = Math.floor((Math.random() * 30) + 10);
+    var colour = Math.floor(Math.random() * colours.length);
+    var posX = Math.floor(Math.random() * (canvasWidth - width));
 
+    var politician = document.createElement("div");
+    politician.className = "obstacle";
+
+    politician.style.width = width + "vw";
+    politician.style.height = width + "vw";
+    politician.style.borderRadius = "50%";
+    politician.style.backgroundColor = colours[colour];
+    console.log(colours[colour]);
+
+    politician.style.position = "absolute";
+    politician.style.left = posX + "vw";
+    politician.style.top = -100 + "vh";
+
+    document.getElementsByClassName('canvas')[0].appendChild(politician);
+}
 // creates new obstacles
 function createObstacle() {
     // random width, height, colour, posX (within limits) 
