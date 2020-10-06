@@ -15,9 +15,10 @@
 
 ## Style and Code standards
 
-naming convention: underscore 
+naming convention: underscore  
 
-Colours: 
+CSS width & height for future reference  
+![css width & height](./images/css_measurements.png)
 
 
 ## Progress and Documentation
