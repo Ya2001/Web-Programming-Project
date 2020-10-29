@@ -1,5 +1,7 @@
 // IDEA: when the game starts, obstacles are created (random size, colour & y-position) at a certain time interval
 // depending on the difficulty level the players are on
+
+
 // obstacles movement: css animation: .obstacle-animation class is added to every newly created obstacle
 console.log(document.documentElement.clientWidth);
 // the start & stop buttons to control the game
@@ -27,14 +29,15 @@ var level = 4;
 // removed in stopGame()
 var intervalID;
 
-// array for the colours used in the game
-// used in createObstacle
-var colours = ["#ffa500", "#3cb371", "#6a5acd", "#ee82ee"];
+// array for the colours used in the game; used in createObstacle
+var colours = ["#e76f51", "#f4a261", "#e9c46a", "#2a9d8f", "#264653"];
 
 
+var gameIsOn = false;  // to check if the start button was pressed
 
 // stop the game: everything that needs to start when the stopButton is clicked
 function stopGame() {
+    gameIsOn = false;
     var i;
     obstacleArray = document.getElementsByClassName("obstacle");
     for (i = 0; i < obstacleArray.length; i++) {
@@ -45,7 +48,9 @@ function stopGame() {
 
 // start the game: everything that needs to start when the startButton is clicked
 // var interval: variable for the difficulty level to control the speed of the obstacle creation
+
 function startGame() {
+    gameIsOn = true;
     var interval;
     switch (level) {
         case 1:
@@ -121,16 +126,19 @@ function moveRight() {
     }
 }
 document.addEventListener("keydown", event => {
-    if (both == 0) {
-        both++;
-        if (event.keyCode === 37) {
-            interval = setInterval(moveLeft, 1);
-        }
-        if (event.keyCode === 39) {
-            interval = setInterval(moveRight, 1);
+    if (gameIsOn) {
+        if (both == 0) {
+            both++;
+            if (event.keyCode === 37) {
+                interval = setInterval(moveLeft, 1);
+            }
+            if (event.keyCode === 39) {
+                interval = setInterval(moveRight, 1);
+            }
         }
     }
 });
+
 document.addEventListener("keyup", event => {
     clearInterval(interval);
     both = 0;
