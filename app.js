@@ -2,27 +2,19 @@ const express = require("express");
 var app = express();
 app.listen(8080, () => console.log("Server on"));
 
-<<<<<<< HEAD
+//dependencies
 app.use(express.static("client"));
 
-=======
+//max data receivable is 1mb (anti ddos)
+app.use(express.json({limit: "1mb"}));
 
-app.use(express.static("client"));
-
-/* 	sorry, I still had this and I'm just finding out where I got this from,
-	but needed to git pull in order to git push
-
-app.use(express.static("client"));
-app.get("/", function (reg, res) {
-	res.sendFile(__dirname + '/client/index.html');
+//make can get requests
+app.post('/server', (request, response) => {
+	console.log("User authenticated.")
+	console.log(request.body);
+	response.json({
+		status: "success",
+		username: request.body.uname,
+		password: request.body.pwd
+	});
 });
-app.use("client", express.static(__dirname + "/client"));
-
-server.listen(8080);
-console.log("Server started");
-
-var io = require('socket.io')(server, {});
-io.sockets.on('connection', function (socket) {
-	console.log("Someone connected.")
-}); */
->>>>>>> 382ba20b75011877c91af7d6c6e1885192c4824a
