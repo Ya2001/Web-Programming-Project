@@ -15,14 +15,22 @@ app.use(express.json({limit: "1mb"}));
 const database = new Datastore("database.db");
 database.loadDatabase();
 
+//get data between clients (usernames, scores)
+app.get("/server", (request, response) => {
+	database.find({}, (err, data) => {
+		if (err)
+		{
+			response.end();
+			return;
+		}
+		response.json(data);
+	});
+});
+
+
 //make can get requests
 app.post('/server', (request, response) => {
 	console.log("User authenticated.")
 	const data = request.body;
 	database.insert(data);
-	response.json({
-		status: "success",
-		username: request.body.uname,
-		password: request.body.pwd
-	});
 });

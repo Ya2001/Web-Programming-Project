@@ -24,6 +24,14 @@
 		     	console.log(response);
 		     });
 	     }
+	     
+	     get_data();
+	     async function get_data()
+	     {
+	     	const response = await fetch("/server");
+	     	const data = await response.json();
+	     	console.log(data);
+	     }
 
 		 function login_f() {
 	            var login_username = document.getElementById('login_uname').value;
