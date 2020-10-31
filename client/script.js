@@ -15,14 +15,6 @@ stopButton.addEventListener("click", stopGame);
 var gameWidth = 95; //vw
 var gameHeight = 90; //vh
 
-// variables used for the player/character
-var character = document.getElementById("character");
-var interval;
-var both = 0;
-// grabs the player width & height from the style.css :root{}
-var charWidth = 5;
-
-
 // variable for the level (the higher, the more obstacles)
 var level = 4;
 // global variable for window.setInterval: saves the intervalID from startGame() so it can be later 
@@ -32,18 +24,30 @@ var intervalID;
 // array for the colours used in the game; used in createObstacle
 var colours = ["#e76f51", "#f4a261", "#e9c46a", "#2a9d8f", "#264653"];
 
+// variables used for the player/character
+var character = document.getElementById("character");
+var interval;
+var both = 0;
+// grabs the player width & height from the style.css :root{}
+var charWidth = 5;
+// size of 1vw in px: 
+var oneVW = document.documentElement.clientWidth / 100;
 
-var gameIsOn = false;  // to check if the start button was pressed
+// to check if the start button was pressed
+var gameIsOn = false;
 
 // stop the game: everything that needs to start when the stopButton is clicked
 function stopGame() {
     gameIsOn = false;
-    var i;
     obstacleArray = document.getElementsByClassName("obstacle");
-    for (i = 0; i < obstacleArray.length; i++) {
+    for (var i = 0; i < obstacleArray.length; i++) {
         obstacleArray[i].parentNode.removeChild(obstacleArray[i]);
     }
     window.clearInterval(intervalID);
+
+    // put character back to starting position
+    character.style.left = 1;
+    character.style.transform = 'rotate(0deg)';
 }
 
 // start the game: everything that needs to start when the startButton is clicked
@@ -114,32 +118,36 @@ function createObstacle() {
 
 /* player movement */
 function moveLeft() {
+    // the distance from the leftmost point of the screen to the rightmost point of the character
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+    // while this distance != 0, the character can still move left
     if (left > 0) {
-        character.style.left = left - 3 + "px";
+        // move the character 10 pixels to the left
+        character.style.left = left - 10 + "px";
+        // rotate the character's legs to the left
+        character.style.transform = "rotate(180deg)";
     }
 }
 function moveRight() {
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    if (left < document.documentElement.clientWidth / 100 * (gameWidth - charWidth)) {  // == game width - char width
-        character.style.left = left + 3 + "px";
+    // while this distance is not bigger than gamewidth - charwidth, character can still move right
+    if (left < oneVW * (gameWidth - charWidth)) {  // == game width - char width
+        // move the character 10 pixels to the right
+        character.style.left = left + 10 + "px";
+        // rotate the character gif to the right
+        character.style.transform = "rotate(0deg)";
     }
 }
-document.addEventListener("keydown", event => {
+document.addEventListener('keydown', (event) => {
+    // if the start key has been pressed
     if (gameIsOn) {
-        if (both == 0) {
-            both++;
-            if (event.keyCode === 37) {
-                interval = setInterval(moveLeft, 1);
-            }
-            if (event.keyCode === 39) {
-                interval = setInterval(moveRight, 1);
-            }
+        switch (event.key) {
+            // if the left arrow is pressed, move left
+            case 'ArrowLeft': moveLeft();
+                break;
+            // if the right arrow is pressed, move right
+            case 'ArrowRight': moveRight();
+                break;
         }
     }
-});
-
-document.addEventListener("keyup", event => {
-    clearInterval(interval);
-    both = 0;
 });

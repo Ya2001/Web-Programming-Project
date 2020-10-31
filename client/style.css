@@ -11,7 +11,6 @@
     --accent-colour-yellow: #e9c46a; 
     --accent-colour-orange: #f4a261; 
     --accent-colour-red: #e76f51; 
-
     --font: 'Verdana';
     --button-font-size: 1vw; 
 }
@@ -43,10 +42,9 @@ overflow is hidden because everything outside this area isn't in the game anymor
 
 #character {
     width: var(--character-width);
-    height: var(--character-width);  
     bottom: 0; 
+    left: 1;
     position: absolute;
-    background-color: red;
     align-self: baseline;
 }
 
