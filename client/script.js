@@ -30,8 +30,10 @@ var interval;
 var both = 0;
 // grabs the player width & height from the style.css :root{}
 var charWidth = 5;
-// size of 1vw in px: 
+// size of 1vw in px (used in moveLeft() & moveRight())
 var oneVW = document.documentElement.clientWidth / 100;
+// displaying the name of the player
+var playerName = document.getElementById('playerName');
 
 // to check if the start button was pressed
 var gameIsOn = false;
@@ -45,9 +47,10 @@ function stopGame() {
     }
     window.clearInterval(intervalID);
 
-    // put character back to starting position
+    // put player back to starting position
     character.style.left = 1;
     character.style.transform = 'rotate(0deg)';
+    playerName.style.left = 1;
 }
 
 // start the game: everything that needs to start when the startButton is clicked
@@ -78,41 +81,50 @@ function startGame() {
     }, interval);
 }
 
+// adding the created obstacles
 function addObstacle() {
-    //create a new obstacle
-    createObstacle();
-
-    // add the CSS animation to every obstacle that is created
-    obstacleArray = document.getElementsByClassName("obstacle");
-    var i;
-    for (i = 0; i < obstacleArray.length; i++) {
-        obstacleArray[i].classList.add("obstacle-animation");
-    }
+    // create a new obstacle
+    var newObstacle = createObstacle();
+    // add the newly created obstacle to the game
+    document.getElementsByClassName('game')[0].appendChild(newObstacle);
+    console.log(newObstacle);
+    // add the animation to it 
+    newObstacle.classList.add("obstacle-animation");
 }
 
 // creates new obstacles
 function createObstacle() {
+    // create a new div
+    var obstacle = document.createElement("div");
     // random width, height, colour, posX (within limits) 
     var width = Math.floor((Math.random() * 30) + 10);
     var height = Math.floor((Math.random() * 10) + 10);
     var colour = Math.floor(Math.random() * colours.length);
     var posX = Math.floor(Math.random() * (90 - width));
+    // create either circle or rectangle
+    var circleOrRectangle = Math.floor((Math.random() * 2)); // random number between 0 and 1
+    if (circleOrRectangle == 0) {
+        console.log("in circle");
+        // create a circle
+        obstacle.style.width = height + "vw";
+        obstacle.style.height = height + "vw";
+        obstacle.style.borderRadius = "50%";
+        obstacle.style.top = height * (-1) + "vh";
+    } else {
+        // create a rectangle
+        obstacle.style.width = width + "vw";
+        obstacle.style.height = height + "vh";
+        obstacle.style.top = height * (-1) + "vh";
+    }
 
-    var obstacle = document.createElement("div");
-    obstacle.className = "obstacle";
-
-    // size, colour of the obstacle
-    obstacle.style.width = width + "vw";
-    obstacle.style.height = height + "vh";
-    obstacle.style.border = "5px solid " + colours[colour];
+    // give it a colour: 
+    obstacle.style.backgroundColor = "" + colours[colour];
 
     // start position of the obstacle
     obstacle.style.position = "absolute";
     obstacle.style.left = posX + "vw";
-    obstacle.style.top = -100 + "vh";
 
-    // add the newly created obstacle to the game
-    document.getElementsByClassName('game')[0].appendChild(obstacle);
+    return obstacle;
 }
 
 
@@ -126,6 +138,8 @@ function moveLeft() {
         character.style.left = left - 10 + "px";
         // rotate the character's legs to the left
         character.style.transform = "rotate(180deg)";
+        // moving the display of the player name
+        playerName.style.left = left - 10 + "px";
     }
 }
 function moveRight() {
@@ -136,6 +150,8 @@ function moveRight() {
         character.style.left = left + 10 + "px";
         // rotate the character gif to the right
         character.style.transform = "rotate(0deg)";
+        // moving the display of the player name
+        playerName.style.left = left + 10 + "px";
     }
 }
 document.addEventListener('keydown', (event) => {

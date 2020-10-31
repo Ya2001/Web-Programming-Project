@@ -47,8 +47,26 @@ overflow is hidden because everything outside this area isn't in the game anymor
     position: absolute;
     align-self: baseline;
 }
+/* name of the player to be displayed on top of the character */
+/* later: get name from database */ 
+#playerName {
+    font-family: var(--font);
+    font-size: var(--button-font-size); 
+    color: var(--accent-colour-dblue); 
+    position: absolute; 
+    left: 1; 
+    bottom: 4vw; 
+}
 
-/* animation-class for the obstacle, that will be added to the class when play is pressed */ 
+/* .test {
+    background-color: yellowgreen;
+    border-radius: 50%; 
+    height: 20vw; 
+    width: 20vw; 
+    position: absolute;
+    top: -0vw; 
+} */
+
 .obstacle-animation {
     animation-name: obstacle-animation; 
     animation-duration: 3s;  
