@@ -26,6 +26,7 @@
 	     }
 	     
 	     get_data();
+
 	     async function get_data()
 	     {
 	     	const response = await fetch("/server");
@@ -36,7 +37,8 @@
 		 function login_f() {
 	            var login_username = document.getElementById('login_uname').value;
 	            var login_password = document.getElementById('login_pwd').value;
-	            send_data(login_username, login_password);
+	            //send_data(login_username, login_password);
+	            return login_username;
 	     }
 
  		 function register_f() {
