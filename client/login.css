@@ -36,13 +36,13 @@
 }
 
 
-#uname{
+.form_field{
 
 	margin-bottom: 40px;
 	width: 250px;
-	height: 35px;
 	border-radius: 12px;
 	font-size: 20px;
+	height: 35px;
 }
 
 #uname_text
@@ -50,13 +50,9 @@
 	font-size: 30px;
 }
 
-#pwd
+.form_field
 {
-	margin-bottom: 40px;
-	width: 250px;
-	height: 35px;
-	border-radius: 12px;
-	font-size: 20px;
+
 }
 
 #main_text

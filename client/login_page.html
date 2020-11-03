@@ -4,26 +4,63 @@
 	<link rel="stylesheet" href="login.css">
 	<title>Login</title>
 
-	<!-- The core Firebase JS SDK is always required and must be listed first -->
-	<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
-	<script src="login.js"></script>
 </head>
 <body class="login_page">
 
+	<script>
+
+	     function send_data(uname, pwd)
+	     {
+		     const data = {uname, pwd};
+		     const options = 
+		     {
+		     	method: "POST",
+		     	headers: {
+		     		"Content-type": "application/JSON"
+		     	},
+		     	body: JSON.stringify(data)
+		     };
+		     fetch("/server", options).then(response => {
+		     	console.log(response);
+		     });
+	     }
+	     
+	     get_data();
+
+	     async function get_data()
+	     {
+	     	const response = await fetch("/server");
+	     	const data = await response.json();
+	     	console.log(data);
+	     }
+
+		 function login_f() {
+	            var login_username = document.getElementById('login_uname').value;
+	            var login_password = document.getElementById('login_pwd').value;
+	            //send_data(login_username, login_password);
+	            return login_username;
+	     }
+
+ 		 function register_f() {
+	            var register_username = document.getElementById('register_uname').value;
+	            var register_password = document.getElementById('register_pwd').value;
+	            send_data(register_username, register_password);
+	     }
+
+	</script>
 
 <div class="login">
-	<form action="index.html">
+	<form action="index.html" onsubmit="login_f()">
     <h1 id="main_text">Login</h1>
 
     <label for="uname"><b id="login_page_text">Username</b></label>
     <br>
-    <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
+    <input class="form_field" id="login_uname" type="text" placeholder="Enter Username" name="uname" required>
     <br>
 
     <label for="pwd"><b id="login_page_text">Password</b></label>
     <br>
-    <input id="pwd" type="password" placeholder="Enter Password" name="pwd" required>
+    <input class="form_field" id="login_pwd" type="password" placeholder="Enter Password" name="pwd" required>
     <br>
 
      <a href="index.html">
@@ -38,21 +75,21 @@
 <div class="register">
     <h1 id="main_text">Register</h1>
 
-	<form action="index.html">
+	<form action="index.html" onsubmit="register_f()">
 	    <label for="uname"><b id="login_page_text">Username</b></label>
 	    <br>
-	    <input id="uname" type="text" placeholder="Enter Username" name="uname" required>
+	    <input class="form_field" id="register_uname" type="text" placeholder="Enter Username" name="uname" required>
 	    <br>
 
 	    <label for="pwd"><b id="login_page_text">Password</b></label>
 
 	    <br>
-	    <input id="pwd" type="password" placeholder="Enter Password" name="pwd" required>
+	    <input class="form_field" id="register_pwd" type="password" placeholder="Enter Password" name="pwd" required>
 	    <br>
 
 	    <label for="pwd"><b id="login_page_text">Repeat Password</b></label>
 	    <br>
-	    <input id="pwd" type="password" placeholder="Repeat Password" name="pwd" required>
+	    <input class="form_field" id="register_pwd" type="password" placeholder="Repeat Password" name="pwd" required>
 	    <br>
 
 	    <a href="index.html">
@@ -63,6 +100,7 @@
 
 
  </div>
+
 
 
 </body>

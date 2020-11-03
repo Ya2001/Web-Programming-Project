@@ -6,8 +6,11 @@
     /* if those get changed, don't forget to change in script.js as well! */
     --character-width: 5vw; 
 
-    --accent-colour-purple: #2d005c; 
-    --accent-colour-blue: rgb(0, 138, 156); 
+    --accent-colour-dblue: #264653; 
+    --accent-colour-blue: #2a9d8f; 
+    --accent-colour-yellow: #e9c46a; 
+    --accent-colour-orange: #f4a261; 
+    --accent-colour-red: #e76f51; 
     --font: 'Verdana';
     --button-font-size: 1vw; 
 }
@@ -21,8 +24,7 @@
 body {
     height: 98%; 
     width: 100%; 
-    background-image: linear-gradient(to bottom, #97f9f9, #a4def9, #c1e0f7, #cfbae1, 
-    #c59fc9); 
+    background-image: linear-gradient(to bottom, var(--accent-colour-yellow), var(--accent-colour-blue)); 
 }
 
 /* responsive div for the game-area
@@ -34,21 +36,37 @@ overflow is hidden because everything outside this area isn't in the game anymor
     margin: auto;
     overflow: hidden;
     position: relative;
-    border: 3px solid var(--accent-colour-purple); 
     background-color: rgb(255, 255, 255, 0.5); 
-    border-radius: 10px; 
+    border-radius: 3px; 
 }
 
 #character {
     width: var(--character-width);
-    height: var(--character-width);  
     bottom: 0; 
+    left: 1;
     position: absolute;
-    background-color: red;
     align-self: baseline;
 }
+/* name of the player to be displayed on top of the character */
+/* later: get name from database */ 
+#playerName {
+    font-family: var(--font);
+    font-size: var(--button-font-size); 
+    color: var(--accent-colour-dblue); 
+    position: absolute; 
+    left: 1; 
+    bottom: 4vw; 
+}
 
-/* animation-class for the obstacle, that will be added to the class when play is pressed */ 
+/* .test {
+    background-color: yellowgreen;
+    border-radius: 50%; 
+    height: 20vw; 
+    width: 20vw; 
+    position: absolute;
+    top: -0vw; 
+} */
+
 .obstacle-animation {
     animation-name: obstacle-animation; 
     animation-duration: 3s;  
@@ -78,26 +96,25 @@ overflow is hidden because everything outside this area isn't in the game anymor
     margin-right: 1vh; 
     padding: 0.5vw;
     width: 40%; 
-    border-radius: 30px; 
-    border: 3px solid var(--accent-colour-purple); 
+    border-radius: 10px; 
     background-color: transparent; 
+    border: 2.5px solid var(--accent-colour-dblue); 
     font-family: var(--font);
     font-size: var(--button-font-size);
     text-transform: uppercase;
     font-weight: bold;
-    color: var(--accent-colour-purple);
-}
-.startButton:focus, .stopButton:focus {
-    outline: none; 
+    color: var(--accent-colour-dblue);  
 }
 .startButton:hover, .stopButton:hover {
-    background-color: var(--accent-colour-purple);
+    background-color: var(--accent-colour-dblue);
+    animation-name: sheen;
     color: white; 
 }
 .startButton:focus, .stopButton:focus {
-    background-color: var(--accent-colour-blue); 
+    /* gets rid of the default border that stays around the button once it's pressed */
+    outline: none; 
+    background-color: var(--accent-colour-dblue); 
     color: white;
-    border: none; 
 }
 .loginControls {
     display: flex;
@@ -110,10 +127,13 @@ overflow is hidden because everything outside this area isn't in the game anymor
     font-family: var(--font); 
     font-weight: bold;
     font-size: var(--button-font-size); 
-    border-radius: 30px;
-    background-color: #10F75D;
-    border-color: #000000;
+    border-radius: 10px;
+    border: 2.5px solid var(--accent-colour-dblue); 
+    background-color: transparent;
+    color: var(--accent-colour-dblue); 
 }
 #login_button:hover, #submit:hover {
-    background-color: yellow;
+    background-color: var(--accent-colour-blue); 
+    border: 2.5px solid var(--accent-colour-blue); 
+    color: white; 
 }
