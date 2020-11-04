@@ -126,6 +126,29 @@ function createObstacle() {
 
     return obstacle;
 }
+// Message to print when player hits an obstacle. This depends on whether they won or lost the game//
+function gameOver(message){
+    gameIsOn = false;
+    setTimeout(printEndGameMessage(message, false));
+}
+function gameWin(message){
+    gameIsOn = false;
+    setTimeout(printEndGameMessage(message, true));
+}
+function printEndGameMessage(message, gameWon){
+    if(gameWon){
+        alert(message);
+    }
+    else{
+        alert("Game Over \n" + message);
+    }
+        
+
+}
+
+
+
+
 
 
 /* player movement */
