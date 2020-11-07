@@ -30,6 +30,8 @@ var interval;
 var both = 0;
 // grabs the player width & height from the style.css :root{}
 var charWidth = 5;
+var charHeight = 5;
+var charSize = charWidth * charHeight;
 // size of 1vw in px (used in moveLeft() & moveRight())
 var oneVW = document.documentElement.clientWidth / 100;
 // displaying the name of the player
@@ -101,6 +103,7 @@ function createObstacle() {
     var height = Math.floor((Math.random() * 10) + 10);
     var colour = Math.floor(Math.random() * colours.length);
     var posX = Math.floor(Math.random() * (90 - width));
+    
     // create either circle or rectangle
     var circleOrRectangle = Math.floor((Math.random() * 2)); // random number between 0 and 1
     if (circleOrRectangle == 0) {
@@ -110,23 +113,68 @@ function createObstacle() {
         obstacle.style.height = height + "vw";
         obstacle.style.borderRadius = "50%";
         obstacle.style.top = height * (-1) + "vh";
+        
     } else {
         // create a rectangle
         obstacle.style.width = width + "vw";
         obstacle.style.height = height + "vh";
         obstacle.style.top = height * (-1) + "vh";
+        obstacle.style.size = width * height;
     }
 
     // give it a colour: 
     obstacle.style.backgroundColor = "" + colours[colour];
 
+    // get its size;
+     
+
     // start position of the obstacle
     obstacle.style.position = "absolute";
     obstacle.style.left = posX + "vw";
+    
 
     return obstacle;
 }
-// Message to print when player hits an obstacle. This depends on whether they won or lost the game//
+
+function collision(object1,object2){
+    //Checking if the player is colliding with a rectangle or a circle
+    if (circleOrRectangle == 0){
+        return (
+            //This checks to see if the x and y coordinates of object 1 are touching or overlapping 
+            // the x and y coordinates of object 2 and returns a boolean value accordingly
+            (object1.left + object1.size / 2) >= (object2.left - object2.size / 2) &&
+            (object1.left - object1.size / 2) <= (object2.left + object2.size / 2) &&
+            (object1.top + object1.size / 2) >= (object2.top - object2.size / 2) &&
+            (object1.top - object1.size / 2) <= (object2.top + object2.size / 2)
+        )
+    }
+    
+    else {
+        // Find the difference between the centre of the circle and the centre of the player character
+        var distX = Math.abs(object1.left - object2.left-object2.width / 2);
+        var distY = Math.abs(object1.top - object2.top-object2.height / 2);
+        // Check to see if the dictance between the centres is greater that the 
+        // radius of the circle + half the width of the rectangle since then they would be too far apart to touch
+        if (distX >= (object2.width / 2 + object1.width / 2)) {return false};
+        if (distY >= (object2.height / 2 + object1.width / 2)) {return false};
+        //If the distance is less than that then we can confirm that they are definately colliding
+        if (distX <= (object2.width / 2)) {return true};
+        if (distY <= (object2.height / 2)) {return true};
+        // We then use pythagoras theorum to compare the diztance from the centre of the rectangle
+        // to the centre of the circle. If this returns true then the rectangles corner is touching the circle
+        var dx = distX - object2.width / 2;
+        var dy = distY - object2.heigth / 2;
+        return(dx*dx+dy*dy <= (object2.width / 2) * (object2.width / 2));
+    }
+}
+
+//function checkCollision(){
+    //if collision (obstacle,character) {gameOver("You got hit")};}
+// Getting an error asking for a bracket when it is not necessary 
+
+
+
+// Message to print when either player hits an obstacle and loses or if they are the last one alive and they win
 function gameOver(message){
     gameIsOn = false;
     setTimeout(printEndGameMessage(message, false));
@@ -142,9 +190,9 @@ function printEndGameMessage(message, gameWon){
     else{
         alert("Game Over \n" + message);
     }
-        
-
 }
+
+
 
 
 
