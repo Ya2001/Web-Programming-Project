@@ -7,6 +7,7 @@
 </head>
 <body class="login_page">
 
+
 	<script>
 
 	     function send_data(uname, pwd)
@@ -48,13 +49,12 @@
             	if (register_password_1 == register_password_2)
             	{	
             		console.log("123");
-            		
+            		window.location.href="index.html";
             		send_data(register_username, register_password_1);
             		
             	}
             	else
             	{
-            		window.stop();
             		alert("Passwords do not match.");
             	}
 	     }
@@ -63,8 +63,13 @@
 
 	</script>
 
+
+
+
+
+<nav>
 <div class="login">
-	<form action="index.html" onsubmit="login_f()">
+	<form action="index.html" onclick ="login_f()">
     <h1 id="main_text">Login</h1>
 
     <label for="uname"><b id="login_page_text">Username</b></label>
@@ -77,19 +82,18 @@
     <input class="form_field" id="login_pwd" type="password" placeholder="Enter Password" name="pwd" required>
     <br>
 
-     <a href="index.html">
      <button id="submit_login" type="submit">Login</button>
-     </a>
  	</form>
  </div>
-
+</nav>
 
 <dir class="vertical"></dir>
 
+<nav>
 <div class="register">
     <h1 id="main_text">Register</h1>
 
-	<form action="index.html" onsubmit="register_f()">
+	<form  onsubmit="register_f()">
 	    <label for="uname"><b id="login_page_text">Username</b></label>
 	    <br>
 	    <input class="form_field" id="register_uname" type="text" placeholder="Enter Username" name="uname_reg" required>
@@ -105,12 +109,10 @@
 	    <br>
 	    <input class="form_field" id="register_pwd_2" type="password" placeholder="Repeat Password" name="pwd_reg_2" required>
 	    <br>
-	    <a href="index.html">
-	    	<button id="submit_reg"  type="submit" >Register</button>
-	   </a>
+	    	<button id="submit_reg"   type="submit" >Register</button>
 
 	</form>
-
+</nav>
 
  </div>
 
