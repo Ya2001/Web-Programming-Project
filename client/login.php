@@ -7,13 +7,14 @@ if(isset($_POST['submit_login']))
  	}
  else
  	{
-	 //Define $user and $pass
-	 $user=$_POST['user'];
-	 $pass=$_POST['pass'];
+	$conn = mysqli_connect("localhost", "root", "");
+	 //get the data - escape sql injection
+	 $user=mysqli_real_escape_string($conn, $_POST["user"]);
+	 $pass=mysqli_real_escape_string($conn, $_POST["pass"]);
 
 
 	 //Establishing Connection with server by passing server_name, user_id and pass as a patameter
-	 $conn = mysqli_connect("localhost", "root", "");
+	 
 	 //Selecting Database
 	 $db = mysqli_select_db($conn, "users_db");
 	 //sql query to fetch information of registerd user and finds user match.
