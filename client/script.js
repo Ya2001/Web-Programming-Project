@@ -30,6 +30,9 @@ var colour;
 var posX;
 var circleOrRectangle;
 
+// variables for collision detection
+var collisionID; // saves the intervalID for the collision setInterval() function
+
 
 /* ******************************************* window listeners *********************************************** */
 /* store all key presses in an object and later check what we need
@@ -76,6 +79,8 @@ function gameLoop() {
 
 // update the variables
 function update() {
+    // start collision detection 
+    detectCollision();
     // size of 1vw in px (used in moveLeft() & moveRight())
     var oneVW = document.documentElement.clientWidth / 100;
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
@@ -104,12 +109,14 @@ function draw(positionX) {
 function stop() {
     // delete animation from obstacles
     obstacle.style.top = (-1) * obstacle.style.height.replace(/[^0-9]/g, '') + "vw";
-    console.log(obstacle.style.top);
     obstacle.classList.remove('obstacle-animation');
 
     // put player back to starting position
     character.style.left = 0;
     positionX = 0;
+
+    // stop collision detection
+    clearInterval(collisionID);
 }
 
 
@@ -127,47 +134,31 @@ function obstacles() {
         obstacle.style.width = randomWidth + "vw";
         obstacle.style.height = Math.floor(Math.random() * 20 + 1) + "vw";
     })
+
 }
 
 /* ********************************************** collision detection ********************************************** */
-function collision(object1, object2) {
-    // Checking if the player is colliding with a rectangle or a circle
-    if (circleOrRectangle == 0) {
-        return (
-            //This checks to see if the x and y coordinates of object 1 are touching or overlapping 
-            // the x and y coordinates of object 2 and returns a boolean value accordingly
-            (object1.left + object1.size / 2) >= (object2.left - object2.size / 2) &&
-            (object1.left - object1.size / 2) <= (object2.left + object2.size / 2) &&
-            (object1.top + object1.size / 2) >= (object2.top - object2.size / 2) &&
-            (object1.top - object1.size / 2) <= (object2.top + object2.size / 2)
-        )
-    }
+function detectCollision() {
+    collisionID = setInterval(function () {
+        var cLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+        var cRight = parseInt(window.getComputedStyle(character).getPropertyValue("right"));
 
-    else {
-        // Find the difference between the centre of the circle and the centre of the player character
-        var distX = Math.abs(object1.left - object2.left - object2.width / 2);
-        var distY = Math.abs(object1.top - object2.top - object2.height / 2);
-        // Check to see if the dictance between the centres is greater that the 
-        // radius of the circle + half the width of the rectangle since then they would be too far apart to touch
-        if (distX >= (object2.width / 2 + object1.width / 2)) { return false };
-        if (distY >= (object2.height / 2 + object1.width / 2)) { return false };
-        //If the distance is less than that then we can confirm that they are definately colliding
-        if (distX <= (object2.width / 2)) { return true };
-        if (distY <= (object2.height / 2)) { return true };
-        // We then use pythagoras theorum to compare the diztance from the centre of the rectangle
-        // to the centre of the circle. If this returns true then the rectangles corner is touching the circle
-        var dx = distX - object2.width / 2;
-        var dy = distY - object2.heigth / 2;
-        return (dx * dx + dy * dy <= (object2.width / 2) * (object2.width / 2));
-    }
+        var oLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue("left"));
+        var oRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("right"));
+        var oBottom = parseInt(window.getComputedStyle(obstacle).getPropertyValue("bottom"));
+        var oWidth = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
+        var oHeight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
+
+        // if distance from bottom to obstacle is smaller than the character height, there is potential to collide
+        if (oBottom < (charHeight + 1) && oBottom >= oHeight * (-1)) { // +1 is the distance the character hovers over the bottom
+            if (oLeft < cLeft && oLeft + oWidth >= cLeft || oRight < cRight && oRight + oWidth >= cRight) {
+                alert("collide");
+                gameIsOn = false;
+            }
+        }
+    }, 10);
 }
 
-function checkCollision() {
-    if (collision(obstacle, character)) {
-        gameOver("You got hit")
-    }
-}
-//Getting an error asking for a bracket when it is not necessary 
 
 // Message to print when player hits an obstacle. This depends on whether they won or lost the game//
 function gameOver(message) {
