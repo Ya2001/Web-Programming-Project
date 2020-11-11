@@ -8,6 +8,13 @@ if(isset($_POST['submit_login']))
  else
  	{
 	$conn = mysqli_connect("localhost", "root", "");
+
+	// Check connection
+	if (!$conn) 
+	{
+  		die("Connection failed: " . mysqli_connect_error());
+	}
+
 	 //get the data - escape sql injection
 	 $user=mysqli_real_escape_string($conn, $_POST["user"]);
 	 $pass=mysqli_real_escape_string($conn, $_POST["pass"]);
@@ -27,9 +34,6 @@ if(isset($_POST['submit_login']))
  	$query = mysqli_query($conn, "SELECT * FROM users WHERE password = '$pwd_hash' AND userName='$user'");
 
 
-
-
-
 	 $rows = mysqli_num_rows($query);
 	 if($rows == 1)
 	 	{
@@ -42,5 +46,3 @@ if(isset($_POST['submit_login']))
 	 mysqli_close($conn); // Closing connection
 	}
 }
-
-?>
