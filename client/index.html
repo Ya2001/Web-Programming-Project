@@ -1,39 +1,41 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <title>Drop Guys</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="login.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Drop Guys</title>
+
 </head>
 
 <body>
 
-    <!-- creates a container div for the game = the world the game happens in -->
-    <div class="canvas">
+	<div class="controls">
+		<div class="gameControls">
+			<button class="startButton">start</button>
+			<button class="stopButton">stop</button>
+		</div>
+		<div class="loginControls">
+			<a href="login_page.php">
+				<button id="login_button" type="submit">Login / Register</button>
+			</a>
+		</div>
+	</div>
 
-        <!-- div for the obstacles coming from above -->
 
-        <!-- <div class="obstacle">
+	<div class="game">
+		<div id="obstacle">
 
-        </div> -->
+		</div>
+		<div id="character">
+			<p id="playerName">name</p>
+		</div>
+	</div>
 
 
-        <!-- div for the players -->
-        <div class="player">
-        </div>
-
-    </div>
-    <div class="controls">
-        <button class="startButton">Start</button>
-        <button class="stopButton">Stop</button>
-    </div>
 </body>
-
-
 <script src="script.js"></script>
-<!-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> 
-<script>
-    var socket = io();
-</script> -->
+<!-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script> var socket = io(); </script> -->
 
 </html>
