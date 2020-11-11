@@ -1,6 +1,34 @@
 <?php
-include("login.php");
+	include("login.php");
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+
+	// Creating connection
+	$conn = mysqli_connect($servername, $username, $password);
+	// Checking connection
+	if (!$conn) {
+	    die("Connection failed: " . mysqli_connect_error());
+	}
+
+	// Creating a database 
+	$db = mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS users_db");
+
+	//selecting created db
+	$select_db = mysqli_select_db($conn, 'users_db');
+
+	//creating table with values
+	$create_table = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS users (
+		  userID int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		  userName varchar(30) NOT NULL UNIQUE KEY,
+		  password varchar(30) NOT NULL)");
+	
+	// closing connection
+	mysqli_close($conn);
 ?>
+
+
  
 <!DOCTYPE html>
 <html>
