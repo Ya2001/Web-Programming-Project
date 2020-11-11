@@ -10,8 +10,11 @@
 	}
 	
 	$conn = mysqli_connect("localhost", "root", "");
-	$db = mysqli_select_db($conn, "test");
-	$sql = "INSERT INTO `userpass` (`id`, `user`, `pass`) VALUES (NULL, '$uname_reg', '$pwd_reg_1');";
+	$db = mysqli_select_db($conn, 'users_db');
+	
+	$hashed_pwd = password_hash(pwd_reg_1, PASSWORD_DEFAULT);
+
+	$sql = "INSERT INTO users (userID, userName, password) VALUES (NULL, '$uname_reg', '$hashed_pwd');";
 	$result = mysqli_query($conn, $sql);
 
 	header("Location: index.html");
