@@ -4,7 +4,7 @@
     --canvas-height: 90vh; 
 
     /* if those get changed, don't forget to change in script.js as well! */
-    --character-width: 5vw; 
+    --character-width: 5vw;  
 
     --accent-colour-dblue: #264653; 
     --accent-colour-blue: #2a9d8f; 
@@ -42,22 +42,23 @@ overflow is hidden because everything outside this area isn't in the game anymor
 
 #character {
     width: var(--character-width);
-    height: var(--character-height);
+    height: var(--character-width); 
     bottom: 0; 
-    left: 1;
+    left: 0;
     position: absolute;
     align-self: baseline;
+    background-color: green;
 }
 /* name of the player to be displayed on top of the character */
 /* later: get name from database */ 
-#playerName {
+/* #playerName {
     font-family: var(--font);
     font-size: var(--button-font-size); 
     color: var(--accent-colour-dblue); 
     position: absolute; 
     left: 1; 
     bottom: 4vw; 
-}
+} */
 
 /* .test {
     background-color: yellowgreen;
@@ -70,12 +71,12 @@ overflow is hidden because everything outside this area isn't in the game anymor
 
 .obstacle-animation {
     animation-name: obstacle-animation; 
-    animation-duration: 3s;  
+    animation-duration: 4s;  
     animation-timing-function: linear; 
     animation-fill-mode: forwards; 
 }
 @keyframes obstacle-animation {
-    0% {top: -11vh}
+    0% {top: -15vw}
     100% {top: 100%}
 }
 
