@@ -4,10 +4,11 @@
 	$pwd_reg_1 = $_POST["pwd_reg_1"];
 	$pwd_reg_2 = $_POST["pwd_reg_2"];
 
-	if(($_POST["pwd_reg_1"])!=($_POST["pwd_reg_2"]))
-	{
-    	$error_reg = "Oops! Password did not match! Try again.";
-	}
+	//left to do:
+	//1. Password mathing
+	//2. Unique usernames
+	//3. if signed in change button to logout
+	//4. if logout clicked do -- ??
 	
 	$conn = mysqli_connect("localhost", "root", "");
 	$db = mysqli_select_db($conn, 'users_db');
