@@ -31,8 +31,9 @@ if(isset($_POST['submit_login']))
  	 $result = mysqli_fetch_assoc($hashed_query);
  	 $pwd_hash = $result['password'];
 
- 	$query = mysqli_query($conn, "SELECT * FROM users WHERE password = '$pwd_hash' AND userName='$user'");
+ 	 $ver = password_verify($pass, $pwd_hash);
 
+	$query = mysqli_query($conn, "SELECT * FROM users WHERE password='$pass' AND  userName='$user'");
 
 	 $rows = mysqli_num_rows($query);
 	 if($rows == 1)
