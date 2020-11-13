@@ -1,12 +1,8 @@
 <?php
 	include("login.php");
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-
 	// Creating connection
-	$conn = mysqli_connect($servername, $username, $password);
+	$conn = mysqli_connect("localhost", "root", "");
 	// Checking connection
 	if (!$conn) {
 	    die("Connection failed: " . mysqli_connect_error());
@@ -20,9 +16,9 @@
 
 	//creating table with values
 	$create_table = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS users (
-		  userID int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		  userID int(30) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		  userName varchar(30) NOT NULL UNIQUE KEY,
-		  password varchar(30) NOT NULL)");
+		  password varchar(60) NOT NULL)");
 	
 	// closing connection
 	mysqli_close($conn);

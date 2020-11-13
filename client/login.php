@@ -16,29 +16,32 @@ if(isset($_POST['submit_login']))
 	}
 
 	 //get the data - escape sql injection
-	 $user=mysqli_real_escape_string($conn, $_POST["user"]);
-	 $pass=mysqli_real_escape_string($conn, $_POST["pass"]);
+	 $user= $_POST["user"];
+	 $pass= $_POST["pass"];
 
 
-	 //Establishing Connection with server by passing server_name, user_id and pass as a patameter
-	 
 	 //Selecting Database
 	 $db = mysqli_select_db($conn, "users_db");
 	 //sql query to fetch information of registerd user and finds user match.
 
 	 //getting the hashed password from the database
  	 $hashed_query = mysqli_query($conn, "SELECT * FROM users WHERE  userName='$user'");
+
  	 $result = mysqli_fetch_assoc($hashed_query);
  	 $pwd_hash = $result['password'];
 
- 	 $ver = password_verify($pass, $pwd_hash);
+	 $error_login =gettype($pwd_hash);
+	 $error_login = $pwd_hash;
+	 $error_login = gettype($pass);
 
-	$query = mysqli_query($conn, "SELECT * FROM users WHERE password='$pass' AND  userName='$user'");
+	 if(password_verify($pass, $pwd_hash))
+	 {
+	 	$rows = mysqli_num_rows($hashed_query);
+	 }
 
-	 $rows = mysqli_num_rows($query);
 	 if($rows == 1)
 	 	{
-	 	header("Location: index.html"); // Redirecting to other page
+	 		header("Location: index.html"); // Redirecting to other page
 	 	}
 	 else
 		 {

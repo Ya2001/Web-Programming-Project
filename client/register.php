@@ -10,9 +10,9 @@
 	}
 
 	//escape sql injection
-	$uname_reg = mysqli_real_escape_string($conn, $_POST["uname_reg"]);
-	$pwd_reg_1 = mysqli_real_escape_string($conn, $_POST["pwd_reg_1"]);
-	$pwd_reg_2 = mysqli_real_escape_string($conn, $_POST["pwd_reg_2"]);
+	$uname_reg = $_POST["uname_reg"];
+	$pwd_reg_1 = $_POST["pwd_reg_1"];
+	$pwd_reg_2 = $_POST["pwd_reg_2"];
 
 	//left to do:
 	//1. Password mathing
@@ -25,7 +25,7 @@
 	$db = mysqli_select_db($conn, 'users_db');
 	
 	//hashing the input password
-	$hashed_pwd = password_hash(pwd_reg_1, PASSWORD_DEFAULT);
+	$hashed_pwd = password_hash($pwd_reg_1, PASSWORD_BCRYPT);
 
 	//adding the hashed password and the username to the database
 	$query = mysqli_query($conn, "INSERT INTO users (userID, userName, password) 
