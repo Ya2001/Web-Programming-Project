@@ -1,5 +1,7 @@
 <?php
+	include("register.php");
 	include("login.php");
+
 
 	// Creating connection
 	$conn = mysqli_connect("localhost", "root", "");
@@ -18,7 +20,7 @@
 	$create_table = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS users (
 		  userID int(30) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		  userName varchar(30) NOT NULL UNIQUE KEY,
-		  password varchar(60) NOT NULL)");
+		  password varchar(255) NOT NULL)");
 	
 	// closing connection
 	mysqli_close($conn);
@@ -72,7 +74,9 @@
 		    <br>
 		    <label for="pwd"><b id="login_page_text">Repeat Password</b></label>
 	   		 <br>
-		    <input class="form_field" id="register_pwd_2" type="password" placeholder="Repeat Password" name="pwd_reg_2" required>
+		    <input class="form_field" id="register_pwd_2" type="password" placeholder="Repeat Password" name="pwd_reg_2" required>	
+		    <br>
+		    <span><?php echo $error_reg; ?></span>
 
 		    <br>
 	    	<button id="submit_reg"   type="submit" name="submit_reg" >Register</button>
