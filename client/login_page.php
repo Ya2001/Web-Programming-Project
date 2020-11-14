@@ -76,7 +76,8 @@
 	   		 <br>
 		    <input class="form_field" id="register_pwd_2" type="password" placeholder="Repeat Password" name="pwd_reg_2" required>	
 		    <br>
-		    <span><?php echo $error_reg; ?></span>
+
+				<span><?php echo $error_reg; ?></span>
 
 		    <br>
 	    	<button id="submit_reg"   type="submit" name="submit_reg" >Register</button>

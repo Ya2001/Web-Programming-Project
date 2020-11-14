@@ -2,8 +2,6 @@
 //build connection,get the data
 $error_reg = "";
 
-
-
 if(isset($_POST['submit_reg']))
 	{
 		if($_POST['pwd_reg_2'] !== $_POST['pwd_reg_1'])
@@ -44,7 +42,10 @@ if(isset($_POST['submit_reg']))
 		//adding the hashed password and the username to the database
 		$query = mysqli_query($conn, "INSERT INTO users (userID, userName, password) 
 										VALUES (NULL, '$uname_reg', '$hashed_pwd');");
-		$affected = mysqli_affected_rows($query);
+
+		//getting affected rows, as username is set to unique in database,
+		//if an existing username if registered there is no change in the database
+		$affected = mysqli_affected_rows($conn);
 		if ($affected > 0 )
 		{
 			//Forwarding to main page
@@ -54,7 +55,8 @@ if(isset($_POST['submit_reg']))
 		else
 		{
 			$error_reg = "Username already exists";
-			header("Location: login_page.php?username_exists");
+			echo $error_reg;
+			//header("Location: login_page.php?username_exists");
 		}
 
 	}
