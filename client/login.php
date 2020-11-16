@@ -8,7 +8,7 @@ if(isset($_POST['submit_login']))
  		}
  else
  	{
-	$conn = mysqli_connect("sql206.epizy.com", "epiz_27210625", "p4yIUYOs08FQo8", "epiz_27210625_users_db");
+		$conn = mysqli_connect("localhost", "root", "");
 
 		// Check connection
 		if (!$conn) 
@@ -22,6 +22,7 @@ if(isset($_POST['submit_login']))
 
 
 		 //Selecting Database
+		 $db = mysqli_select_db($conn, "users_db");
 		 //sql query to fetch information of registerd user and finds user match.
 
 		 //getting the hashed password from the database
