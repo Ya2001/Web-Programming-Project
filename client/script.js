@@ -23,15 +23,12 @@ var charHeight = 5;
 var charSize = charWidth * charHeight;
 
 // variables for the obstacle
-var obstacle = document.getElementById("obstacle");
+var obstacle;
 var width;
 var height;
 var colour;
 var posX;
 var circleOrRectangle;
-
-// variables for collision detection
-var collisionID; // saves the intervalID for the collision setInterval() function
 
 
 /* ******************************************* window listeners *********************************************** */
@@ -79,8 +76,6 @@ function gameLoop() {
 
 // update the variables
 function update() {
-    // start collision detection 
-    detectCollision();
     // size of 1vw in px (used in moveLeft() & moveRight())
     var oneVW = document.documentElement.clientWidth / 100;
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
@@ -107,58 +102,139 @@ function draw(positionX) {
 /* ********************************************** stop the game *********************************************** */
 // stop the game: everything that needs to start when the stopButton is clicked
 function stop() {
-    // delete animation from obstacles
-    obstacle.style.top = (-1) * obstacle.style.height.replace(/[^0-9]/g, '') + "vw";
-    obstacle.classList.remove('obstacle-animation');
+    // delete all the obstacles
+    window.clearInterval(intervalID);
+    obstacleArray = document.getElementsByClassName("obstacle");
+    for (var i = 0; i < obstacleArray.length; i++) {
+        obstacleArray[i].parentNode.removeChild(obstacleArray[i]);
+    }
 
     // put player back to starting position
     character.style.left = 0;
     positionX = 0;
-
-    // stop collision detection
-    clearInterval(collisionID);
 }
 
 
 /* ********************************************** Obstacle creation *********************************************** */
 function obstacles() {
-    obstacle.classList.add('obstacle-animation'); // takes the CSS obstacle-animation and adds it to the obstacle div
-    obstacle.addEventListener('animationiteration', () => {
-        // change the position in every iteration
-        var random = Math.floor(Math.random() * gameWidth + 1);
-        width = obstacle.style.left.replace(/[^0-9]/g, ''); // the current width of the obstacle
-        obstacle.style.left = random - width + "vw"; // subtract width from obstacle so it doesn't go out of the canvas
+    // variable for the level (the higher, the more obstacles)
+    var level = 4;
 
-        // change the width and height in every iteration
-        var randomWidth = Math.floor(Math.random() * 10 + 1) // gives you a random number from 1 to 10
-        obstacle.style.width = randomWidth + "vw";
-        obstacle.style.height = Math.floor(Math.random() * 20 + 1) + "vw";
-    })
+    // var interval: variable for the difficulty level to control the speed of the obstacle creation
+    var interval;
 
+    switch (level) {
+        case 1:
+            interval = 5000; break;
+        case 2:
+            interval = 4000; break;
+        case 3:
+            interval = 3000; break;
+        case 4:
+            interval = 2000; break;
+        case 5:
+            interval = 1000; break;
+        default:
+            stopGame();
+            break;
+    }
+
+    // add obstacles at the correct speed (according to difficulty)
+    intervalID = window.setInterval(function () {
+        addObstacle();
+    }, interval);
 }
+
+// adding the created obstacles
+function addObstacle() {
+    // create a new obstacle
+    var newObstacle = createObstacle();
+    // add the newly created obstacle to the game
+    document.getElementsByClassName('game')[0].appendChild(newObstacle);
+    // add the animation to it 
+    newObstacle.classList.add("obstacle-animation");
+}
+
+// creates new obstacles
+function createObstacle() {
+    // array for the colours used in the game; used in createObstacle
+    var colours = ["#e76f51", "#f4a261", "#e9c46a", "#2a9d8f", "#264653"];
+    // create a new div
+    obstacle = document.createElement("div");
+    // random width, height, colour, posX (within limits) 
+    width = Math.floor((Math.random() * 30) + 10);
+    height = Math.floor((Math.random() * 10) + 10);
+    colour = Math.floor(Math.random() * colours.length);
+    posX = Math.floor(Math.random() * (90 - width));
+
+    // create either circle or rectangle
+    circleOrRectangle = Math.floor((Math.random() * 2)); // random number between 0 and 1
+    // creates a circle
+    if (circleOrRectangle == 0) {
+        obstacle.style.width = height + "vw";
+        obstacle.style.height = height + "vw";
+        obstacle.style.borderRadius = "50%";
+        obstacle.style.top = "-100vh";
+        // creates a rectangle
+    } else {
+        obstacle.style.width = width + "vw";
+        obstacle.style.height = height + "vh";
+        obstacle.style.top = "-100vh";
+        obstacle.style.size = width * height;
+    }
+
+    // give it a colour: 
+    obstacle.style.backgroundColor = "" + colours[colour];
+
+    // get its size
+
+    // start position of the obstacle
+    obstacle.style.position = "absolute";
+    obstacle.style.left = posX + "vw";
+
+    return obstacle;
+}
+
 
 /* ********************************************** collision detection ********************************************** */
-function detectCollision() {
-    collisionID = setInterval(function () {
-        var cLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-        var cRight = parseInt(window.getComputedStyle(character).getPropertyValue("right"));
+function collision(object1, object2) {
+    // Checking if the player is colliding with a rectangle or a circle
+    if (circleOrRectangle == 0) {
+        return (
+            //This checks to see if the x and y coordinates of object 1 are touching or overlapping 
+            // the x and y coordinates of object 2 and returns a boolean value accordingly
+            (object1.left + object1.size / 2) >= (object2.left - object2.size / 2) &&
+            (object1.left - object1.size / 2) <= (object2.left + object2.size / 2) &&
+            (object1.top + object1.size / 2) >= (object2.top - object2.size / 2) &&
+            (object1.top - object1.size / 2) <= (object2.top + object2.size / 2)
+        )
+    }
 
-        var oLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue("left"));
-        var oRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("right"));
-        var oBottom = parseInt(window.getComputedStyle(obstacle).getPropertyValue("bottom"));
-        var oWidth = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
-        var oHeight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
-
-        // if distance from bottom to obstacle is smaller than the character height, there is potential to collide
-        if (oBottom < (charHeight + 1) && oBottom >= oHeight * (-1)) { // +1 is the distance the character hovers over the bottom
-            if (oLeft < cLeft && oLeft + oWidth >= cLeft || oRight < cRight && oRight + oWidth >= cRight) {
-                alert("collide");
-                gameIsOn = false;
-            }
-        }
-    }, 10);
+    else {
+        // Find the difference between the centre of the circle and the centre of the player character
+        var distX = Math.abs(object1.left - object2.left - object2.width / 2);
+        var distY = Math.abs(object1.top - object2.top - object2.height / 2);
+        // Check to see if the dictance between the centres is greater that the 
+        // radius of the circle + half the width of the rectangle since then they would be too far apart to touch
+        if (distX >= (object2.width / 2 + object1.width / 2)) { return false };
+        if (distY >= (object2.height / 2 + object1.width / 2)) { return false };
+        //If the distance is less than that then we can confirm that they are definately colliding
+        if (distX <= (object2.width / 2)) { return true };
+        if (distY <= (object2.height / 2)) { return true };
+        // We then use pythagoras theorum to compare the diztance from the centre of the rectangle
+        // to the centre of the circle. If this returns true then the rectangles corner is touching the circle
+        var dx = distX - object2.width / 2;
+        var dy = distY - object2.heigth / 2;
+        return (dx * dx + dy * dy <= (object2.width / 2) * (object2.width / 2));
+    }
 }
 
+function checkCollision() {
+    if (collision(obstacle, character)) {
+        gameOver("You got hit")
+    }
+}
+//Getting an error asking for a bracket when it is not necessary 
 
 // Message to print when player hits an obstacle. This depends on whether they won or lost the game//
 function gameOver(message) {

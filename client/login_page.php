@@ -4,17 +4,11 @@
 
 
 	// Creating connection
-	$conn = mysqli_connect("localhost", "root", "");
+	$conn = mysqli_connect("sql206.epizy.com", "epiz_27210625", "p4yIUYOs08FQo8", "epiz_27210625_users_db");
 	// Checking connection
 	if (!$conn) {
 	    die("Connection failed: " . mysqli_connect_error());
 	}
-
-	// Creating a database 
-	$db = mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS users_db");
-
-	//selecting created db
-	$select_db = mysqli_select_db($conn, 'users_db');
 
 	//creating table with values
 	$create_table = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS users (

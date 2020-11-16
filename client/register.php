@@ -13,7 +13,7 @@ if(isset($_POST['submit_reg']))
 	else
  	{
 		
-		$conn = mysqli_connect("localhost", "root", "");
+		$conn = mysqli_connect("sql206.epizy.com", "epiz_27210625", "p4yIUYOs08FQo8", "epiz_27210625_users_db");
 		// Check connection
 		if (!$conn) 
 		{
@@ -34,7 +34,7 @@ if(isset($_POST['submit_reg']))
 		//6. move files
 		
 		//selecting db
-		$db = mysqli_select_db($conn, 'users_db');
+		
 		
 		//hashing the input password
 		$hashed_pwd = password_hash($pwd_reg_1, PASSWORD_DEFAULT);
