@@ -1,3 +1,8 @@
+/* style inspo: https://www.smashingmagazine.com/2012/05/develop-a-one-of-a-kind-cssjs-based-game-portfolio/
+https://www.youtube.com/watch?v=RuLRsMN9KJQ
+
+*/
+
 /* game-specific variables like colours & sizes */
 :root {
     --canvas-width: 95vw; 
@@ -11,8 +16,10 @@
     --accent-colour-yellow: #e9c46a; 
     --accent-colour-orange: #f4a261; 
     --accent-colour-red: #e76f51; 
-    --font: 'Verdana';
-    --button-font-size: 1vw; 
+    --accent-colour-grey: #757575; 
+    --accent-colour-dgrey: #383838; 
+    --font: 'Impact';
+    --button-font-size: 1.2vw; 
 }
 
 /* remove default margin and padding */
@@ -24,9 +31,10 @@
 body {
     height: 98%; 
     width: 100%; 
-    background-image: linear-gradient(to bottom, var(--accent-colour-yellow), var(--accent-colour-blue)); 
+    background-color: black;  
 }
 
+/* **************************************************** canvas *************************************************** */
 /* responsive div for the game-area
 to change the size, change at top under :root {}
 overflow is hidden because everything outside this area isn't in the game anymore */
@@ -34,53 +42,56 @@ overflow is hidden because everything outside this area isn't in the game anymor
     width: var(--canvas-width); 
     height: var(--canvas-height);
     margin: auto;
-    overflow: hidden;
+    overflow: hidden; /* to hide the obstacles when they're outside the canvas */
     position: relative;
-    background-color: rgb(255, 255, 255, 0.5); 
+    background-color: rgb(255, 255, 255, 0.1); 
     border-radius: 3px; 
 }
 
+
+/* ***************************************************** player ************************************************** */
 #character {
     width: var(--character-width);
     height: var(--character-width); 
-    bottom: 0; 
+    bottom: 1vw; 
     left: 0;
     position: absolute;
     align-self: baseline;
-    background-color: green;
+    border: 3px dashed white;
 }
 /* name of the player to be displayed on top of the character */
 /* later: get name from database */ 
-/* #playerName {
+#playerName {
     font-family: var(--font);
     font-size: var(--button-font-size); 
-    color: var(--accent-colour-dblue); 
+    color: white;  
     position: absolute; 
-    left: 1; 
-    bottom: 4vw; 
-} */
+    bottom: 5.5vw; 
+}
 
-/* .test {
-    background-color: yellowgreen;
-    border-radius: 50%; 
-    height: 20vw; 
-    width: 20vw; 
-    position: absolute;
-    top: -0vw; 
-} */
+/* *************************************************** obstacle ************************************************** */
+#obstacle {
+    width: 10vw;
+    height: 5vh; 
+    position: absolute; 
+    background-color: white;
+    left: 10vw;
+    top: -5vh;
+}
 
 .obstacle-animation {
     animation-name: obstacle-animation; 
-    animation-duration: 4s;  
+    animation-duration: 2s;  
     animation-timing-function: linear; 
-    animation-fill-mode: forwards; 
+    animation-iteration-count: infinite;
 }
+
 @keyframes obstacle-animation {
     0% {top: -15vw}
     100% {top: 100%}
 }
 
-
+/* *************************************************** controls ************************************************** */
 /* styling for the start- & stop-button */
 .controls {
     margin: auto; 
@@ -100,23 +111,22 @@ overflow is hidden because everything outside this area isn't in the game anymor
     width: 40%; 
     border-radius: 10px; 
     background-color: transparent; 
-    border: 2.5px solid var(--accent-colour-dblue); 
+    border: 2.5px solid var(--accent-colour-dgrey); 
     font-family: var(--font);
     font-size: var(--button-font-size);
-    text-transform: uppercase;
     font-weight: bold;
-    color: var(--accent-colour-dblue);  
+    color: var(--accent-colour-grey);  
 }
 .startButton:hover, .stopButton:hover {
-    background-color: var(--accent-colour-dblue);
-    animation-name: sheen;
+    border-color: white; 
     color: white; 
 }
 .startButton:focus, .stopButton:focus {
     /* gets rid of the default border that stays around the button once it's pressed */
     outline: none; 
-    background-color: var(--accent-colour-dblue); 
-    color: white;
+    background-color: var(--accent-colour-grey); 
+    color: black;
+    border-color: var(--accent-colour-grey);
 }
 .loginControls {
     display: flex;
@@ -134,8 +144,7 @@ overflow is hidden because everything outside this area isn't in the game anymor
     background-color: transparent;
     color: var(--accent-colour-dblue); 
 }
-#login_button:hover, #submit:hover {
-    background-color: var(--accent-colour-blue); 
+#login_button:hover, #submit:hover { 
     border: 2.5px solid var(--accent-colour-blue); 
-    color: white; 
+    color: var(--accent-colour-blue); 
 }
