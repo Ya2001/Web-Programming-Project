@@ -63,3 +63,13 @@ Goals for next meeting:
 - Akshay: use @keyframes for player movement (avoid using canvas)  
 - Laura: design world & obstacles  
 - next meeting: compile all the code
+
+### 2020-11-16
+
+Client:  
+- character can be moved by arrowkeys  
+- using a gameLoop() to control the game  
+- obstacle creation: one obstacle that shows up on the screen over and over again in different size & position 
+- collision detection: detects if player hits the obstacle  
+
+Current Design: 
