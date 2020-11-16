@@ -63,6 +63,9 @@ Goals for next meeting:
 - Akshay: use @keyframes for player movement (avoid using canvas)  
 - Laura: design world & obstacles  
 - next meeting: compile all the code
+</br>
+</br>
+</br>
 
 ### 2020-11-16
 
@@ -73,3 +76,4 @@ Client:
 - collision detection: detects if player hits the obstacle  
 
 Current Design: 
+![current_design](./images/2020-11-16_design.png)
