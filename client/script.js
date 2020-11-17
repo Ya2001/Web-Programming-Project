@@ -99,7 +99,6 @@ function update() {
             positionX = left + MOVEMENT_SPEED + "px";
         }
     }
-    // collision();
 }
 
 // update the graphics
@@ -155,7 +154,7 @@ function detectCollision() {
         // if distance from bottom to obstacle is smaller than the character height, there is potential to collide
         if (oBottom < (charHeightPx + 1.5 * oneVW) && oBottom >= oHeight * (-1)) { // +1 is the distance the character hovers over the bottom
             if (oLeft < cLeft && oLeft + oWidth >= cLeft || oRight < cRight && oRight + oWidth >= cRight) {
-                alert("collide");
+                window.open("win-lose/gameOver.html", "_self");
                 gameIsOn = false;
             }
         }

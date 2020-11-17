@@ -1,0 +1,132 @@
+/* style inspo: https://www.smashingmagazine.com/2012/05/develop-a-one-of-a-kind-cssjs-based-game-portfolio/
+https://www.youtube.com/watch?v=RuLRsMN9KJQ
+
+*/
+
+/* game-specific variables like colours & sizes */
+:root {
+    --canvas-width: 95vw; 
+    --canvas-height: 90vh; 
+
+    /* if those get changed, don't forget to change in script.js as well! */
+    --character-width: 5vw;  
+
+    --accent-colour-dblue: #264653; 
+    --accent-colour-blue: #2a9d8f; 
+    --accent-colour-grey: #757575; 
+    --accent-colour-dgrey: #383838; 
+    --font: 'Impact';
+    --button-font-size: 1.2vw; 
+}
+
+/* remove default margin and padding */
+* {
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    height: 98%; 
+    width: 100%; 
+    background-color: black; 
+}
+
+/* **************************************************** message ************************************************** */
+.layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    display: flex; 
+}
+
+#message {
+    color: white; 
+    margin: auto; 
+    padding-top: 5vh; 
+    height: 70vh; 
+    width: 70vw; 
+    text-align: center; 
+    background-color: rgb(255, 255, 255, 0.3);
+    font-family: var(--font);
+    border: 3px dashed var(--accent-colour-dblue);
+}
+
+#message h1 {
+    font-size: 20vh; 
+    text-shadow: 0.08em 0.1em var(--accent-colour-dblue); 
+}
+
+#message p {
+    font-size: 5vh; 
+    color: var(--accent-colour-blue);  
+}
+
+.gameControls {
+    justify-content: space-evenly; 
+    display: flex; 
+    height: 10vh;
+    margin-top: 15vh; 
+}
+.playAgain, .scoreboard { 
+    border-radius: 50px; 
+    width: 10vw;
+    background-color: transparent; 
+    border: 0.15em solid white; 
+    font-family: var(--font);
+    font-size: 1.5em; 
+    font-weight: bold;
+    color: white;  
+}
+.playAgain:hover, .scoreboard:hover {
+    border-color: var(--accent-colour-dblue);; 
+    color: var(--accent-colour-dblue);; 
+}
+.playAgain:focus, .scoreboard:focus {
+    /* gets rid of the default border that stays around the button once it's pressed */
+    outline: none; 
+    background-color: var(--accent-colour-dblue); 
+    color: white;
+    border-color: var(--accent-colour-dblue);
+}
+
+
+/* **************************************************** canvas *************************************************** */
+/* responsive div for the game-area
+to change the size, change at top under :root {}
+overflow is hidden because everything outside this area isn't in the game anymore */
+.game {
+    width: var(--canvas-width); 
+    height: var(--canvas-height);
+    margin: auto;
+    background-color: rgb(255, 255, 255, 0.1); 
+    border-radius: 3px; 
+    position: relative;
+    top: 6vh; 
+    z-index: -1; 
+}
+
+
+/* ***************************************************** player ************************************************** */
+#character {
+    width: var(--character-width);
+    height: var(--character-width); 
+    bottom: 1vw; 
+    left: 0;
+    position: absolute;
+    align-self: baseline;
+    border: 3px dashed var(--accent-colour-grey);
+    z-index: -1; 
+}
+/* name of the player to be displayed on top of the character */
+/* later: get name from database */ 
+#playerName {
+    font-family: var(--font);
+    font-size: var(--button-font-size); 
+    color: var(--accent-colour-grey);  
+    bottom: 5.5vw; 
+    z-index: -1; 
+    position: absolute;
+}
+
+
