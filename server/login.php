@@ -38,7 +38,7 @@ if(isset($_POST['submit_login']))
 
 		 if($rows == 1)
 		 	{
-		 		header("Location: ../client/index.html?login_success"); // Redirecting to other page
+		 		header("Location: index.html?login_success"); // Redirecting to other page
 		 	}
 		 else
 			 {
