@@ -49,7 +49,7 @@ if(isset($_POST['submit_reg']))
 		if ($affected > 0 )
 		{
 			//Forwarding to main page
-		 	header("Location: index.html?succes_register"); 
+		 	header("Location: ../client/index.html?succes_register"); 
 			mysqli_close($conn); // Closing connection
 		}
 		else
