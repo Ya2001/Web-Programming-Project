@@ -11,6 +11,10 @@ stopButton.addEventListener("click", () => gameIsOn = false);
 // variables for the game
 var gameWidth = 95; //vw
 var gameHeight = 90; //vh
+var gameWidthPx = document.getElementsByClassName("game")[0].clientWidth; // pixels
+var gameHeightPx = document.getElementsByClassName("game")[0].clientHeight; // pixels
+// size of 1vw in px (used in moveLeft() & moveRight())
+var oneVW = document.documentElement.clientWidth / 100; // oneVW in pixels (on my machine: 13.96)
 
 // global variable for window.setInterval: saves the intervalID from obstacles() so it can be later 
 // removed in stop()
@@ -18,9 +22,11 @@ var intervalID;
 
 // variables for the character
 var character = document.getElementById("character");
-var charWidth = 5;
-var charHeight = 5;
+var charWidth = 5; // vw
+var charHeight = 5; // vw
 var charSize = charWidth * charHeight;
+var charWidthPx = character.clientWidth; // pixels
+var charHeightPx = character.clientHeight; // pixels
 
 // variables for the obstacle
 var obstacle = document.getElementById("obstacle");
@@ -81,8 +87,6 @@ function gameLoop() {
 function update() {
     // start collision detection 
     detectCollision();
-    // size of 1vw in px (used in moveLeft() & moveRight())
-    var oneVW = document.documentElement.clientWidth / 100;
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
 
     if (keyPresses.ArrowLeft) {
@@ -134,7 +138,6 @@ function obstacles() {
         obstacle.style.width = randomWidth + "vw";
         obstacle.style.height = Math.floor(Math.random() * 20 + 1) + "vw";
     })
-
 }
 
 /* ********************************************** collision detection ********************************************** */
@@ -150,13 +153,13 @@ function detectCollision() {
         var oHeight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
 
         // if distance from bottom to obstacle is smaller than the character height, there is potential to collide
-        if (oBottom < (charHeight + 1) && oBottom >= oHeight * (-1)) { // +1 is the distance the character hovers over the bottom
+        if (oBottom < (charHeightPx + 1.5 * oneVW) && oBottom >= oHeight * (-1)) { // +1 is the distance the character hovers over the bottom
             if (oLeft < cLeft && oLeft + oWidth >= cLeft || oRight < cRight && oRight + oWidth >= cRight) {
                 alert("collide");
                 gameIsOn = false;
             }
         }
-    }, 10);
+    }, 50);
 }
 
 
