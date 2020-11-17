@@ -1,6 +1,6 @@
 <?php
-	include("register.php");
-	include("login.php");
+	include("../server/register.php");
+	include("../server/login.php");
 
 
 	// Creating connection
