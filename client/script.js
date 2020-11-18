@@ -1,3 +1,12 @@
+// if client is on phone, switch to mobile view
+var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());        
+console.log(isMobile); 
+
+if (isMobile){
+    window.open("../client/mobile/landingPage.html", "_self");
+}
+
+// otherwise, we're on a computer: 
 // variable to track if start or stop was last clicked
 var gameIsOn;
 
