@@ -18,7 +18,7 @@ clearstatcache();
 $curtimestamp=time();
 
 // todo - limit access/sync - do check here
-if ( true )
+if (true)
 {
 	// keep trying to open the file
 	// hack fix so resolve multiple clients fighting for access

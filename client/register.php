@@ -1,5 +1,6 @@
 <?php
 //build connection,get the data
+session_start();
 $error_reg = "";
 
 if(isset($_POST['submit_reg']))
