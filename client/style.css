@@ -145,3 +145,20 @@ overflow is hidden because everything outside this area isn't in the game anymor
     border: 2.5px solid var(--accent-colour-blue); 
     color: var(--accent-colour-blue); 
 }
+
+
+/* ************************************************* mobile-screens ************************************************ */
+/* @media only screen and (max-device-width: 900px) {
+    .body{
+    }  
+
+    .game{
+        
+    } 
+
+    .controls{
+        display: none;
+    } 
+}  */
+
+
