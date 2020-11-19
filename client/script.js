@@ -118,6 +118,9 @@ function stop() {
     character.style.left = 0;
     positionX = 0;
 
+    // delete all the keypresses 
+    keyPresses = {};
+
     // stop collision detection
     clearInterval(collisionID);
 }
@@ -153,7 +156,7 @@ function detectCollision() {
 
         // if distance from bottom to obstacle is smaller than the character height, there is potential to collide
         if (oBottom < (charHeightPx + 1.5 * oneVW) && oBottom >= oHeight * (-1)) { // +1 is the distance the character hovers over the bottom
-            if (oLeft < cLeft && oLeft + oWidth >= cLeft || oRight < cRight && oRight + oWidth >= cRight) {
+            if (oLeft < (cLeft + charHeightPx) && (oLeft + oWidth) > cLeft) {
                 window.open("win-lose/gameOver.html", "_self");
                 gameIsOn = false;
             }
