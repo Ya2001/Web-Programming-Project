@@ -36,7 +36,7 @@ if(isset($_POST['submit_login']))
 		 		//starting the session and setting global username to last username given
 		 		session_start();
 		 		$_SESSION["username"] = $user;
-				header("Location: index.html?login_success");
+				header("Location: index.php?login_success");
 		 	}
 		 else
 			 {
