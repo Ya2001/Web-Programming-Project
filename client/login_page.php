@@ -52,18 +52,6 @@
 	   		 <br>
 		    <input class="form_field" id="register_pwd_2" type="password" placeholder="Repeat Password" name="pwd_reg_2" required>	
 		    <br>
-
-		    	<!--echoing last logged in person-->	
-				<span>
-				<?php
-				 if (isset($_SESSION["username"])) 
-				 	{
-				 		echo $_SESSION["username"]; 
-				 	}
-				 ?>
-				 	
-				 </span>
-		    <br>
 	    	<button id="submit_reg"   type="submit" name="submit_reg" >Register</button>
 		</form>
 
