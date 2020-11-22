@@ -3,8 +3,6 @@
 	include("login.php");
 	include("../server/connect.php");
 ?>
-
-
  
 <!DOCTYPE html>
 <html>

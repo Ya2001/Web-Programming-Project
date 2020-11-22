@@ -25,6 +25,7 @@ if(isset($_POST['submit_login']))
 	 	 $result = mysqli_fetch_assoc($hashed_query);
 	 	 $pwd_hash = $result['password'];
 
+	 	 //if password is correct, get number of results
 		 if(password_verify($pass, $pwd_hash))
 		 {
 		 	$rows = mysqli_num_rows($hashed_query);
