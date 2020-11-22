@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	include("register.php");
-	include("login.php");
+	include("../server/register.php");
+	include("../server/login.php");
 
 
 	// Creating connection
@@ -79,7 +79,15 @@
 		    <br>
 
 		    	<!--echoing last logged in person-->	
-				<span><?php echo $_SESSION["username"]; ?></span>
+				<span>
+				<?php
+				 if (isset($_SESSION["username"])) 
+				 	{
+				 		echo $_SESSION["username"]; 
+				 	}
+				 ?>
+				 	
+				 </span>
 		    <br>
 	    	<button id="submit_reg"   type="submit" name="submit_reg" >Register</button>
 		</form>

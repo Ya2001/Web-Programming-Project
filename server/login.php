@@ -1,5 +1,6 @@
 <?php
 $error_login=''; //Variable to Store error message;
+
 if(isset($_POST['submit_login']))
 	{
  		if(empty($_POST['user']) || empty($_POST['pass']))
@@ -34,16 +35,22 @@ if(isset($_POST['submit_login']))
 		 if(password_verify($pass, $pwd_hash))
 		 {
 		 	$rows = mysqli_num_rows($hashed_query);
+
 		 }
 
 		 if($rows == 1)
 		 	{
-		 		header("Location: index.html?login_success"); // Redirecting to other page
+		 		//starting the session and setting global username to last username given
+		 		session_start();
+		 		$_SESSION["username"] = $user;
+				header("Location: index.html?login_success");
 		 	}
+
 		 else
 			 {
 			 	$error_login = "Username or Password is Invalid";
 			 }
 		 mysqli_close($conn); // Closing connection
+		 
 	}
 }
