@@ -1,6 +1,5 @@
 <?php
 $error_login=''; //Variable to Store error message;
-
 if(isset($_POST['submit_login']))
 	{
  		if(empty($_POST['user']) || empty($_POST['pass']))
@@ -9,13 +8,7 @@ if(isset($_POST['submit_login']))
  		}
  else
  	{
-		$conn = mysqli_connect("localhost", "root", "");
-
-		// Check connection
-		if (!$conn) 
-		{
-	  		die("Connection failed: " . mysqli_connect_error());
-		}
+		include("../server/connect.php");
 
 		 //get the data - escape sql injection
 		 $user= mysqli_real_escape_string($conn, $_POST["user"]);
@@ -35,7 +28,6 @@ if(isset($_POST['submit_login']))
 		 if(password_verify($pass, $pwd_hash))
 		 {
 		 	$rows = mysqli_num_rows($hashed_query);
-
 		 }
 
 		 if($rows == 1)
@@ -45,7 +37,6 @@ if(isset($_POST['submit_login']))
 		 		$_SESSION["username"] = $user;
 				header("Location: index.html?login_success");
 		 	}
-
 		 else
 			 {
 			 	$error_login = "Username or Password is Invalid";
