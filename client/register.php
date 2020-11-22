@@ -37,7 +37,9 @@ if(isset($_POST['submit_reg']))
 		if ($affected > 0 )
 		{
 			//Forwarding to main page
-		 	header("Location: index.html?register_success"); 
+			header("Location: index.php?register_success");
+			// setting global username to last username given
+			$_SESSION["username"] = $uname_reg;  
 			mysqli_close($conn); // Closing connection
 		}
 		else

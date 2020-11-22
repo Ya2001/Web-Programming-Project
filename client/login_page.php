@@ -3,8 +3,6 @@
 	include("login.php");
 	include("../server/connect.php");
 ?>
-
-
  
 <!DOCTYPE html>
 <html>
@@ -53,18 +51,6 @@
 		    <label for="pwd"><b id="login_page_text">Repeat Password</b></label>
 	   		 <br>
 		    <input class="form_field" id="register_pwd_2" type="password" placeholder="Repeat Password" name="pwd_reg_2" required>	
-		    <br>
-
-		    	<!--echoing last logged in person-->	
-				<span>
-				<?php
-				 if (isset($_SESSION["username"])) 
-				 	{
-				 		echo $_SESSION["username"]; 
-				 	}
-				 ?>
-				 	
-				 </span>
 		    <br>
 	    	<button id="submit_reg"   type="submit" name="submit_reg" >Register</button>
 		</form>

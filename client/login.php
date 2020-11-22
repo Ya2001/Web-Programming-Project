@@ -25,6 +25,7 @@ if(isset($_POST['submit_login']))
 	 	 $result = mysqli_fetch_assoc($hashed_query);
 	 	 $pwd_hash = $result['password'];
 
+	 	 //if password is correct, get number of results
 		 if(password_verify($pass, $pwd_hash))
 		 {
 		 	$rows = mysqli_num_rows($hashed_query);
@@ -35,7 +36,7 @@ if(isset($_POST['submit_login']))
 		 		//starting the session and setting global username to last username given
 		 		session_start();
 		 		$_SESSION["username"] = $user;
-				header("Location: index.html?login_success");
+				header("Location: index.php?login_success");
 		 	}
 		 else
 			 {
