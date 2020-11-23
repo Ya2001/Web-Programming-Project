@@ -37,12 +37,13 @@ if(isset($_POST['submit_login']))
 		 		session_start();
 		 		$_SESSION["username"] = $user;
 				header("Location: index.php?login_success");
+				mysqli_close($conn);
 		 	}
 		 else
 			 {
 			 	$error_login = "Username or Password is Invalid";
 			 }
-		 mysqli_close($conn); // Closing connection
+		  // Closing connection
 		 
 	}
 }
