@@ -1,0 +1,25 @@
+{
+  "name": "web-programming-project",
+  "version": "1.0.0",
+  "description": "web programming game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ya2001/Web-Programming-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ya2001/Web-Programming-Project/issues"
+  },
+  "homepage": "https://github.com/Ya2001/Web-Programming-Project#readme",
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "nodemon": "^2.0.6"
+  }
+}
