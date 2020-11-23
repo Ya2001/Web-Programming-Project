@@ -1,3 +1,8 @@
+//change protocol to https
+if (location.protocol !== "https:") {
+  location.protocol = "https:";
+}
+
 // if client is on phone, switch to mobile view
 var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());        
 console.log(isMobile); 
