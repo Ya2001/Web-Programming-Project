@@ -1,5 +1,6 @@
 <?php
 //build connection,get the data
+session_start();
 $error_reg = "";
 
 if(isset($_POST['submit_reg']))
@@ -12,29 +13,16 @@ if(isset($_POST['submit_reg']))
 
 	else
  	{
-		
-		$conn = mysqli_connect("sql206.epizy.com", "epiz_27210625", "p4yIUYOs08FQo8", "epiz_27210625_users_db");
-		// Check connection
-		if (!$conn) 
-		{
-	  		die("Connection failed: " . mysqli_connect_error());
-		}
+		//connection
+		include("../server/connect.php");
 
 		//getting the data -escaping sql injection
 		$uname_reg = mysqli_real_escape_string($conn, $_POST["uname_reg"]);
 		$pwd_reg_1 = $_POST["pwd_reg_1"];
 		$pwd_reg_2 = $_POST["pwd_reg_2"];
-
-		//left to do:
-		//1. Password mathing
-		//2. Unique usernames
-		//3. if signed in change button to logout
-		//4. creating the database localy if I have to??
-		//5. if logout clicked do -- ??
-		//6. move files
 		
 		//selecting db
-		
+		$db = mysqli_select_db($conn, 'users_db');
 		
 		//hashing the input password
 		$hashed_pwd = password_hash($pwd_reg_1, PASSWORD_DEFAULT);
@@ -49,14 +37,16 @@ if(isset($_POST['submit_reg']))
 		if ($affected > 0 )
 		{
 			//Forwarding to main page
-		 	header("Location: index.html?succes_register"); 
+			header("Location: index.php?register_success");
+			// setting global username to last username given
+			$_SESSION["username"] = $uname_reg;  
 			mysqli_close($conn); // Closing connection
 		}
 		else
 		{
-			$error_reg = "Username already exists";
+			$error_reg = "Username already exists, please go back and try again.";
 			echo $error_reg;
-			//header("Location: login_page.php?username_exists");
+			//header("Location: connect.php?username_exists");
 		}
 
 	}

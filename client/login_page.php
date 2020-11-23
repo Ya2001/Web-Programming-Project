@@ -1,26 +1,8 @@
 <?php
 	include("register.php");
 	include("login.php");
-
-
-	// Creating connection
-	$conn = mysqli_connect("sql206.epizy.com", "epiz_27210625", "p4yIUYOs08FQo8", "epiz_27210625_users_db");
-	// Checking connection
-	if (!$conn) {
-	    die("Connection failed: " . mysqli_connect_error());
-	}
-
-	//creating table with values
-	$create_table = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS users (
-		  userID int(30) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		  userName varchar(30) NOT NULL UNIQUE KEY,
-		  password varchar(255) NOT NULL)");
-	
-	// closing connection
-	mysqli_close($conn);
+	include("../server/connect.php");
 ?>
-
-
  
 <!DOCTYPE html>
 <html>
@@ -69,10 +51,6 @@
 		    <label for="pwd"><b id="login_page_text">Repeat Password</b></label>
 	   		 <br>
 		    <input class="form_field" id="register_pwd_2" type="password" placeholder="Repeat Password" name="pwd_reg_2" required>	
-		    <br>
-
-				<span><?php echo $error_reg; ?></span>
-
 		    <br>
 	    	<button id="submit_reg"   type="submit" name="submit_reg" >Register</button>
 		</form>
