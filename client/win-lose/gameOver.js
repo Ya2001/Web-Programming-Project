@@ -8,7 +8,7 @@ var scoreboard = document.querySelector(".scoreboard");
 playAgain.addEventListener("click", gotoIndex);
 
 
-// function to go back to index.html
+// function to go back to index.php
 function gotoIndex() {
-    window.open("../index.html", "_self");
+    window.open("../index.php", "_self");
 }
