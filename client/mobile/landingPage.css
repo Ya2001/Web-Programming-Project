@@ -1,0 +1,63 @@
+:root{ 
+    --accent-colour-dblue: #264653; 
+    --accent-colour-blue: #2a9d8f; 
+    --accent-colour-grey: #757575; 
+    --accent-colour-dgrey: #383838; 
+    --font: 'Impact';
+    --button-font-size: 1.2vw; 
+} 
+
+*{
+    margin: 0; 
+    padding: 0; 
+    background-color: black;
+}
+
+.body{
+    font-family: 'Impact';
+}
+
+
+.heading{
+    font-family: 'Impact';
+    color: white;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.heading h1{
+    background-color: transparent;
+    font-size: 4em;
+    border: 3px dashed white;
+    border-radius: 70px;
+    padding: 3vw 5vw; 
+} 
+ 
+
+.controls{
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+} 
+
+#goFS, #login {
+    font-family: 'Impact';
+    color: white;
+    border-radius: 30px; 
+    background-color: transparent; 
+    border: 2.5px solid white; 
+    padding: 1.5vw 2.5vw;
+    font-family: var(--font);
+    font-size: 2em;
+    font-weight: bold;
+} 
+
+#goFS:focus, #login:focus {
+    outline: none; 
+    color: var(--accent-colour-dgrey);
+    border-color: var(--accent-colour-dgrey);
+} 
