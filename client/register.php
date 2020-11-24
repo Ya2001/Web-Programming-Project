@@ -1,6 +1,5 @@
 <?php
 //build connection,get the data
-$error = "";
 session_start();
 
 if(isset($_POST['submit_reg']))
@@ -8,7 +7,6 @@ if(isset($_POST['submit_reg']))
 		if($_POST['pwd_reg_2'] !== $_POST['pwd_reg_1'])
 		{
 			// their passwords didn't match
-			$error = "pwd";
 			header("Location: error.php");
 		}
 
@@ -46,7 +44,6 @@ if(isset($_POST['submit_reg']))
 		else
 		// the username exists already
 		{
-			$error = "uname";
 			header("Location: error.php");
 		}
 
