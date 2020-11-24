@@ -46,7 +46,7 @@ https://www2.macs.hw.ac.uk/~bk42/mm0/
 		<div id="obstacle">
 
 		</div>
-		<div id="character">
+		<div id="character0">
 			<p id="playerName">
 				<?php 
 					if (isset($_SESSION["username"])) {
@@ -54,6 +54,15 @@ https://www2.macs.hw.ac.uk/~bk42/mm0/
 					} else {
 						echo "Guest"; 
 					}
+
+					/* $sql = "SELECT * FROM `users` WHERE userID = 1"; 
+					$user = mysqli_query($conn, $sql); 
+					$username = $user->fetch_array()['userName'] ?? '';
+					if (isset ($username)) {
+						echo $username; 
+					} else {
+						echo "Guest"; 
+					} */
 				?>
 			</p>
 		</div>
