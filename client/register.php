@@ -1,14 +1,12 @@
 <?php
 //build connection,get the data
 session_start();
-$error_reg = "";
 
 if(isset($_POST['submit_reg']))
 	{
 		if($_POST['pwd_reg_2'] !== $_POST['pwd_reg_1'])
 		{
-			$error_reg = "Passwords did not match, please go back and try again.";
-			echo $error_reg;
+			header("Location: error.php");
 		}
 
 	else
@@ -44,9 +42,7 @@ if(isset($_POST['submit_reg']))
 		}
 		else
 		{
-			$error_reg = "Username already exists, please go back and try again.";
-			echo $error_reg;
-			//header("Location: connect.php?username_exists");
+			header("Location: error.php");
 		}
 
 	}
