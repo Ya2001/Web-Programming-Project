@@ -1,33 +1,70 @@
-.login_page
-{
-	background-color: black;
-	font-family:sans-serif; ;
-
+/* game-specific variables like colours & sizes */
+:root {
+    --accent-colour-dblue: #264653; 
+    --accent-colour-blue: #2a9d8f; 
+    --font: 'Impact';
 }
 
-.register
-{
-	float: right;
-	margin-top: 60px;
-	margin-right: 40vh;
+/* removing default margin and padding */ 
+* {
+	margin: 0; 
+	padding: 0; 	
+}
+
+body {
+	font-family: Impact, Haettenschweiler, sans-serif;
+	background-color: black;
+	flex-flow: column wrap;
+}
+
+/* style for logo */ 
+.container {
+	width: 100%;
+    display: flex;
+}
+
+.logo {
+    margin: 2vw; 
+    padding: 1vw 2vw; 
+    border: 0.2vw solid white; 
+    border-radius: 50px;
+}
+
+.logo h1 {
 	color: white;
+    font-size: 2vw;
+	text-shadow: 0.09em 0.1em var(--accent-colour-dblue); 
+}
+
+/* style for login & register */
+.content-container {
+	width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .login
 {
-	float: left;
-	margin-top: 60px;
-	margin-left: 33vh;
-	color: white;
+	width: 50%;
+	padding: 3vw; padding-left: 7vw;
+    color: white;  
+    text-align: left; 
+    background-color: rgb(255, 255, 255, 0.3);
+    font-family: var(--font);
+    border: 3px dashed var(--accent-colour-dblue);
 }
 
-.vertical { 
-    border-right: 3px solid white; 
-    height: 70vh; 
-    position: absolute;
-    margin-left: 100vh;
-    margin-top: 100px;
-        }
+.register
+{
+	width: 50%;
+	padding: 3vw; padding-left: 7vw; 
+    color: white;  
+    text-align: left; 
+    background-color: rgb(255, 255, 255, 0.3);
+    font-family: var(--font);
+    border: 3px dashed var(--accent-colour-dblue);
+}
+
 
 #login_page_text
 {
