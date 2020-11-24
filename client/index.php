@@ -6,7 +6,7 @@ https://www2.macs.hw.ac.uk/~bk42/mm0/
 -->
 <!-- include file with connection -->
 <?php
-	include("../server/connect.php");
+	include("../server/connect.inc.php");
 	include("login.php");
 ?>
 <!-- start session -->

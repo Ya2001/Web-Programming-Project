@@ -1,18 +1,20 @@
 <?php
 //build connection,get the data
+$error = "";
 session_start();
 
 if(isset($_POST['submit_reg']))
 	{
 		if($_POST['pwd_reg_2'] !== $_POST['pwd_reg_1'])
 		{
+			$error = "pwd";
 			header("Location: error.php");
 		}
 
 	else
  	{
 		//connection
-		include("../server/connect.php");
+		include("../server/connect.inc.php");
 
 		//getting the data -escaping sql injection
 		$uname_reg = mysqli_real_escape_string($conn, $_POST["uname_reg"]);
@@ -42,6 +44,7 @@ if(isset($_POST['submit_reg']))
 		}
 		else
 		{
+			$error = "uname";
 			header("Location: error.php");
 		}
 

@@ -8,7 +8,7 @@ if(isset($_POST['submit_login']))
  		}
  else
  	{
-		include("../server/connect.php");
+		include("../server/connect.inc.php");
 
 		 //get the data - escape sql injection
 		 $user= mysqli_real_escape_string($conn, $_POST["user"]);

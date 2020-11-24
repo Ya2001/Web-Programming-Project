@@ -1,7 +1,7 @@
 <?php
 	include("register.php");
 	include("login.php");
-	include("../server/connect.php");
+	include("../server/connect.inc.php");
 ?>
  
 <!DOCTYPE html>
@@ -13,7 +13,6 @@
 	</head>
 
 	<body class="login_page">
-
 		<div class="login">
 			<h1 id="main_text">Login</h1>
 			<form  method="post">
