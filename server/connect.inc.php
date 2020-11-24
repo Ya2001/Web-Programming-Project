@@ -22,10 +22,16 @@
 	$select_db = mysqli_select_db($conn, 'users_db');
 
 	//creating table with values
-	$create_table = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS users (
+	$create_table_users = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS users (
 		  userID int(30) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		  userName varchar(30) NOT NULL UNIQUE KEY,
 		  password varchar(255) NOT NULL)");
+
+
+	$create_table_positions = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS positions (
+		  userID int(255) NOT NULL PRIMARY KEY,
+		  userName varchar(30) NOT NULL UNIQUE KEY,
+		  player_position int(255) NOT NULL)");
 	
 
 
