@@ -72,7 +72,6 @@ var positionX = parseInt(window.getComputedStyle(character).getPropertyValue("le
 /* *************************************************** GAME LOOP ************************************************** */
 // starts the game and obstacle loops
 function start() {
-    console.log("yes");
     gameIsOn = true;
     /* start obstacle creation */
     obstacles();
@@ -85,7 +84,7 @@ function gameLoop() {
     get();
 
     update();
-    draw(positionX);
+    draw(character, positionX);
 
     /* the browser performs the callback function on its own time: the browser takes care of picking a suitable fps
     (= frame per second) for the device it is running on (usually about 60fps). */
@@ -117,10 +116,11 @@ function update() {
     }
 }
 
-// todo: change this to acutally take two arguments: name, positionX 
 // update the graphics
-function draw(positionX) {
-    character.style.left = positionX;
+function draw(character, positionX) {
+    if (character != 0) {
+        character.style.left = positionX;
+    };
 }
 
 // getting information from the database
@@ -163,22 +163,17 @@ function get() {
                 var name = data[a].userName;
                 var positionX = data[a].player_position;
 
-                console.log(positionX);
-
                 // if not yet made, make new div for the database players
                 for (var i = 0; i < existingPlayers.length; i++) {
                     if (ID != existingPlayers[i]) {
                         // if the id isn't in the database yet, create new player 
-                        createNewPlayer(ID, name);
+                        var np = createNewPlayer(ID, name);
+                        // update their position 
+                        draw(np, positionX);
+                        // if we're here, the player already had a div, so only update his position
+                    } else {
+                        draw(document.getElementById(existingPlayers[a]), positionX);
                     }
-                }
-
-                // todo: test this method
-                // now we have all players from the database appended to our html & we need to 
-                // update their positions 
-                var players = document.getElementsByClassName("character");
-                for (var i = 0; i < divs.length; i++) {
-                    // existingPlayers.draw(players[i], positionX);
                 }
             }
         }
@@ -223,12 +218,15 @@ function createNewPlayer(ID, name) {
     var newPlayerName = document.createElement("p");
     // setting the p's id
     newPlayerName.id = "playerName";
-    // todo: set p's content to the playername
+    // setting p's content to the name
+    newPlayerName.innerHTML = name;
 
     // appending the new div to the parent div 
     document.getElementById("players").appendChild(newPlayer);
     // appending the newPlayerName p to the newPlayer div
     document.getElementById(ID).appendChild(newPlayerName);
+
+    return newPlayer;
 }
 
 
