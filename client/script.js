@@ -218,7 +218,7 @@ function post(ID, name, posX) {
     })
         .done(function (data) { //  this data contains the response from server_post.php
             // show the response
-            alert(data);
+            alert("Posting worked.");
         })
         .fail(function () {
             // just in case posting your form failed

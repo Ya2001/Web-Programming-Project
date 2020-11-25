@@ -2,6 +2,13 @@
 
 include("connect.inc.php");
 
+// $_POST gives you the JSON object sent by script.js
+$user_id = $_POST['userID']; 
+$user_name = $_POST['userName']; 
+$player_pos = $_POST['player_position']; 
+
+insert_or_update($conn, $user_id, $user_name, $player_pos); 
+
 //inserting into database
 function insert($conn, $user_id, $user_name, $player_pos) 
 {
@@ -27,21 +34,6 @@ function insert_or_update($conn, $user_id, $user_name, $player_pos)
 	else
 	{
 		insert($conn, $user_id, $user_name, $player_pos);
+		echo "Inserted"; 
 	}
 }
-
-// $_POST gives you the JSON object sent by script.js
-$json = $_POST; 
-// however, json_decode() gives an error
-// $data = json_decode($json, true); 
-echo "<pre>";
-    print_r($json);
-echo "</pre>"; 
-
-/* $json = file_get_contents('php://input');
-var_dump($json);
-
-//echo json_last_error_msg();
-
-//calling function
-//insert_or_update($conn, $data["userID"], $data["userName"], $data["player_position"]); */
