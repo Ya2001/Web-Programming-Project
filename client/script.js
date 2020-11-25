@@ -92,8 +92,8 @@ function start() {
 function gameLoop() {
     // get other players' information
     
-    //get();
-    post(200, thisPlayerName, positionX);
+    get();
+    post(thisPlayerName, positionX);
 
     update();
     draw(character, positionX);
@@ -171,7 +171,6 @@ function get() {
 
             // loping through the data 
             for (var a = 0; a < data.length; a++) {
-                var ID = "" + data[a].userID;
                 var name = data[a].userName;
                 var positionX = data[a].player_position;
 
@@ -212,9 +211,9 @@ function get() {
 
 // function to send the information of every player to the database
 // function to send the information of every player to the database
-function post(ID, name, posX) {
+function post(name, posX) {
 
-    var json = { "userID": ID, "userName": name, "player_position": posX };
+    var json = {"userName": name, "player_position": posX };
     $.ajax({
         type: 'POST',
         url: '../server/server_post.php',

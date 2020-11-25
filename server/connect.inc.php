@@ -29,8 +29,7 @@
 
 
 	$create_table_positions = mysqli_query($conn, "CREATE TABLE IF NOT EXISTS positions (
-		  userID int(255) NOT NULL PRIMARY KEY,
-		  userName varchar(30) NOT NULL UNIQUE KEY,
+		  userName varchar(30) NOT NULL PRIMARY KEY,
 		  player_position int(255) NOT NULL)");
 	
 
