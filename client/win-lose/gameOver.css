@@ -68,7 +68,7 @@ body {
     height: 10vh;
     margin-top: 15vh; 
 }
-.playAgain, .scoreboard { 
+.playAgain{ 
     border-radius: 50px; 
     width: 10vw;
     background-color: transparent; 
@@ -78,11 +78,11 @@ body {
     font-weight: bold;
     color: white;  
 }
-.playAgain:hover, .scoreboard:hover {
+.playAgain:hover{
     border-color: var(--accent-colour-dblue);; 
     color: var(--accent-colour-dblue);; 
 }
-.playAgain:focus, .scoreboard:focus {
+.playAgain:focus{
     /* gets rid of the default border that stays around the button once it's pressed */
     outline: none; 
     background-color: var(--accent-colour-dblue); 
