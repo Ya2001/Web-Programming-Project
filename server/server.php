@@ -1,12 +1,34 @@
 <?php
 
-//making connection
-include("connect.inc.php");
 
-//selecting databse
+//making connection
+// include("connect.inc.php");
+
+//values used to connect
+$servername = "localhost";
+$username = "root";
+$password = "";
+$db_name = "";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $db_name);
+
+//selecting database
 $db = mysqli_select_db($conn, 'users_db');
 
-//inserting into database
+// getting data from table 
+$result = mysqli_query($conn, "SELECT * FROM `positions`"); 
+
+// storing in array 
+$data = array(); 
+while ($row = mysqli_fetch_assoc($result)) {
+	$data[] = $row; 
+}
+
+// returning response in JSON format
+echo json_encode($data); 
+
+/* //inserting into database
 function insert($conn, $user_id, $user_name, $player_pos) 
 {
   $sql = "INSERT INTO positions (userID, userName, player_position) 
@@ -35,4 +57,4 @@ function insert_or_update($conn, $user_id, $user_name, $player_pos)
 }
 
 //calling function
-insert_or_update($conn, 1, 'asdasd', 300);
+insert_or_update($conn, 1, 'asdasd', 300); */

@@ -1,8 +1,9 @@
-// if client is on phone, switch to mobile view
-var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());        
-console.log(isMobile); 
+// const { send } = require("process");
 
-if (isMobile){
+// if client is on phone, switch to mobile view
+var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
+
+if (isMobile) {
     window.open("../client/mobile/landingPage.html", "_self");
 }
 
@@ -30,7 +31,7 @@ var oneVW = document.documentElement.clientWidth / 100; // oneVW in pixels (on m
 var intervalID;
 
 // variables for the character
-var character = document.getElementById("character");
+var character = document.getElementById("0");
 var charWidth = 5; // vw
 var charHeight = 5; // vw
 var charSize = charWidth * charHeight;
@@ -71,6 +72,7 @@ var positionX = parseInt(window.getComputedStyle(character).getPropertyValue("le
 /* *************************************************** GAME LOOP ************************************************** */
 // starts the game and obstacle loops
 function start() {
+    console.log("yes");
     gameIsOn = true;
     /* start obstacle creation */
     obstacles();
@@ -79,6 +81,9 @@ function start() {
 }
 
 function gameLoop() {
+    // get other players' information
+    get();
+
     update();
     draw(positionX);
 
@@ -96,6 +101,8 @@ function gameLoop() {
 function update() {
     // start collision detection 
     detectCollision();
+
+    // position X
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
 
     if (keyPresses.ArrowLeft) {
@@ -110,9 +117,118 @@ function update() {
     }
 }
 
+// todo: change this to acutally take two arguments: name, positionX 
 // update the graphics
 function draw(positionX) {
     character.style.left = positionX;
+}
+
+// getting information from the database
+function get() {
+
+    /*     var queryString = {
+            'userID': ID,
+            'userName': uname,
+            'player_position': positionX
+        }; */
+
+    // call ajax 
+    var ajax = new XMLHttpRequest();
+    var method = "GET";
+    var url = "../server/server.php";
+    var asynchronous = true;
+
+    ajax.open(method, url, asynchronous);
+    // sending ajax request
+    ajax.send();
+
+    // receiving response from server.php
+    ajax.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // converting JSON back to array 
+            // this is all the positions in JSON format from the database
+            var data = JSON.parse(this.responseText);
+
+            // variable with all divs with class character 
+            var divs = document.getElementsByClassName("character");
+            var existingPlayers = [];
+            // creates an array with all existing players' userIDs (userIDs in string)
+            for (var i = 0; i < divs.length; i++) {
+                existingPlayers.push(divs[i].id);
+            }
+
+            // loping through the data 
+            for (var a = 0; a < data.length; a++) {
+                var ID = "" + data[a].userID;
+                var name = data[a].userName;
+                var positionX = data[a].player_position;
+
+                console.log(positionX);
+
+                // if not yet made, make new div for the database players
+                for (var i = 0; i < existingPlayers.length; i++) {
+                    if (ID != existingPlayers[i]) {
+                        // if the id isn't in the database yet, create new player 
+                        createNewPlayer(ID, name);
+                    }
+                }
+
+                // todo: test this method
+                // now we have all players from the database appended to our html & we need to 
+                // update their positions 
+                var players = document.getElementsByClassName("character");
+                for (var i = 0; i < divs.length; i++) {
+                    // existingPlayers.draw(players[i], positionX);
+                }
+            }
+        }
+    }
+    /*  $.ajax({
+         type: "POST", // we're sending data, so make a POST
+         url: "server.php",
+         data: queryString,
+         cache: false, // dunno what cache is doing
+ 
+         success: function (data) {
+             var dataResult = JSON.parse(data);
+             if (dataResult.statusCode == 200) {
+                 $("#success").show();
+                 $('#success').html('Data added successfully !');
+             }
+             else if (dataResult.statusCode == 201) {
+                 alert("Error occured !");
+             }
+ 
+         }
+     }); */
+}
+
+// todo: make function to send data to server.php to write it to the database
+// function to send the information of every player to the database
+/* function post() {
+    var username = "Laura";
+    var
+} */
+
+// function to create new players 
+function createNewPlayer(ID, name) {
+    // creating a new div 
+    var newPlayer = document.createElement("div");
+    // setting the div's id 
+    newPlayer.id = ID;
+    // setting the div's class
+    newPlayer.className = "character";
+
+    // creating a new p for playername 
+    var newPlayerName = document.createElement("p");
+    // setting the p's id
+    newPlayerName.id = "playerName";
+    // todo: set p's content to the playername
+
+    // appending the new div to the parent div 
+    document.getElementById("players").appendChild(newPlayer);
+    // appending the newPlayerName p to the newPlayer div
+    document.getElementById(ID).appendChild(newPlayerName);
 }
 
 
