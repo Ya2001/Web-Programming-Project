@@ -211,11 +211,11 @@ function post(ID, name, posX) {
     var username = name;
     var positionX = posX;
 
-    var json = { userID: 14, userName: "lascha", player_position: 200 };
+    var json = { "userID": 14, "userName": "lascha", "player_position": 200 };
 
     $.ajax({
         type: 'POST',
-        url: 'server_post.php',
+        url: '../server/server_post.php',
         data: json
     })
         .done(function (data) {

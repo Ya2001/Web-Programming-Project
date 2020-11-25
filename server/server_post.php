@@ -30,15 +30,11 @@ function insert_or_update($conn, $user_id, $user_name, $player_pos)
 	}
 }
 
+$json = file_get_contents('php://input');
+var_dump($json);
 
-$data = json_decode(file_get_contents('php://input'), true);
+//echo json_last_error_msg();
 
 //calling function
-if(!empty($data))
-{
-	insert_or_update($conn, $data["userID"], $data["userName"], $data["player_position"]);
-}
-else
-{
-	echo "no input";
-}
+//insert_or_update($conn, $data["userID"], $data["userName"], $data["player_position"]);
+
