@@ -1,16 +1,13 @@
 // const { send } = require("process");
 
-
-
-//testing post
-post(101,"asdjkadj",763);
-
 // if client is on phone, switch to mobile view
 var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 
 if (isMobile) {
     window.open("../client/mobile/landingPage.html", "_self");
 }
+
+post(14, "thslknc", 234);
 
 // otherwise, we're on a computer: 
 // variable to track if start or stop was last clicked
@@ -140,7 +137,7 @@ function get() {
     // call ajax 
     var ajax = new XMLHttpRequest();
     var method = "GET";
-    var url = "../server/server.php";
+    var url = "../server/server_get.php";
     var asynchronous = true;
 
     ajax.open(method, url, asynchronous);
@@ -211,16 +208,17 @@ function post(ID, name, posX) {
     var username = name;
     var positionX = posX;
 
-    var json = { "userID": 14, "userName": "lascha", "player_position": 200 };
+    // just for testing now: 
+    var json = { "userID": "14", "userName": "lascha", "player_position": "200" };
 
     $.ajax({
         type: 'POST',
         url: '../server/server_post.php',
         data: json
     })
-        .done(function (data) {
+        .done(function (data) { //  this data contains the response from server_post.php
             // show the response
-            alert("Posting worked");
+            alert(data);
         })
         .fail(function () {
             // just in case posting your form failed
