@@ -6,6 +6,8 @@ var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire
 if (isMobile) {
     window.open("../client/mobile/landingPage.html", "_self");
 }
+
+
 // otherwise, we're on a computer: 
 // variable to track if start or stop was last clicked
 var gameIsOn;
@@ -90,7 +92,7 @@ function start() {
 function gameLoop() {
     // get other players' information
     
-    get();
+    //get();
     post(200, thisPlayerName, positionX);
 
     update();
@@ -212,12 +214,7 @@ function get() {
 // function to send the information of every player to the database
 function post(ID, name, posX) {
 
-<<<<<<< HEAD
     var json = { "userID": ID, "userName": name, "player_position": posX };
-=======
-    // just for testing now: 
-    var json = { userID: ID, userName: name, player_position: posX };
->>>>>>> 3241576cc8c1718a0b614b299648f1f9dfe1c0db
     $.ajax({
         type: 'POST',
         url: '../server/server_post.php',
