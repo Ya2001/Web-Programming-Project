@@ -28,11 +28,6 @@ https://www2.macs.hw.ac.uk/~bk42/mm0/
 </head>
 
 <body>
-	<div class="alert alert-success alert-dismissible" id="success" style="display:none;">
-	  	<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-	</div>
-
-
 	<div class="controls">
 		<div class="gameControls">
 			<button class="startButton">start</button>
