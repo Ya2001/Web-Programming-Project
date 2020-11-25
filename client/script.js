@@ -91,12 +91,8 @@ function gameLoop() {
     // get other players' information
     
     get();
-<<<<<<< HEAD
     post(200, thisPlayerName, positionX);
 
-=======
-    post();
->>>>>>> 3241576cc8c1718a0b614b299648f1f9dfe1c0db
     update();
     draw(character, positionX);
 
