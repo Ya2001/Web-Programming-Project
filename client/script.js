@@ -7,7 +7,7 @@ if (isMobile) {
     window.open("../client/mobile/landingPage.html", "_self");
 }
 
-post(14, "laura", 234);
+post(123,"asdasd",10);
 
 // otherwise, we're on a computer: 
 // variable to track if start or stop was last clicked
@@ -209,8 +209,7 @@ function post(ID, name, posX) {
     var positionX = posX;
 
     // just for testing now: 
-    var json = { "userID": 14, "userName": "lascha", "player_position": 200 };
-
+    var json = { userID: id, userName: name, player_position: posX };
     $.ajax({
         type: 'POST',
         url: '../server/server_post.php',
