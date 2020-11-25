@@ -1,13 +1,9 @@
-// const { send } = require("process");
-
 // if client is on phone, switch to mobile view
 var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 
 if (isMobile) {
     window.open("../client/mobile/landingPage.html", "_self");
 }
-
-post(123,"asdasd",10);
 
 // otherwise, we're on a computer: 
 // variable to track if start or stop was last clicked
@@ -34,11 +30,20 @@ var intervalID;
 
 // variables for the character
 var character = document.getElementById("0");
+
+var uniqueID = Date.now(); //  built-in function which allows us to get the number of miliseconds elapsed since January 1, 1970
+character.id = "" + uniqueID; // set the character's id to the unique id generated above 
+character = document.getElementById(uniqueID); // update the character variable
+
 var charWidth = 5; // vw
 var charHeight = 5; // vw
 var charSize = charWidth * charHeight;
 var charWidthPx = character.clientWidth; // pixels
 var charHeightPx = character.clientHeight; // pixels
+
+// getting this player's name
+var thisPlayerName = document.getElementById(uniqueID).childNodes[1].innerHTML.trim();
+
 
 // variables for the obstacle
 var obstacle = document.getElementById("obstacle");
@@ -70,6 +75,8 @@ function keyUpListener(event) {
 const MOVEMENT_SPEED = 10;
 var positionX = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
 
+// send this players's information to the database 
+post(uniqueID, thisPlayerName, positionX);
 
 /* *************************************************** GAME LOOP ************************************************** */
 // starts the game and obstacle loops
@@ -82,6 +89,9 @@ function start() {
 }
 
 function gameLoop() {
+    // send this players's information to the database 
+    post(uniqueID, thisPlayerName, positionX);
+
     // get other players' information
     get();
 
@@ -127,13 +137,6 @@ function draw(character, positionX) {
 
 // getting information from the database
 function get() {
-
-    /*     var queryString = {
-            'userID': ID,
-            'userName': uname,
-            'player_position': positionX
-        }; */
-
     // call ajax 
     var ajax = new XMLHttpRequest();
     var method = "GET";
@@ -180,36 +183,19 @@ function get() {
             }
         }
     }
-    /*  $.ajax({
-         type: "POST", // we're sending data, so make a POST
-         url: "server.php",
-         data: queryString,
-         cache: false, // dunno what cache is doing
- 
-         success: function (data) {
-             var dataResult = JSON.parse(data);
-             if (dataResult.statusCode == 200) {
-                 $("#success").show();
-                 $('#success').html('Data added successfully !');
-             }
-             else if (dataResult.statusCode == 201) {
-                 alert("Error occured !");
-             }
- 
-         }
-     }); */
 }
 
-// function to send the information of every player to the database
+
 // function to send the information of every player to the database
 function post(ID, name, posX) {
-    // information to post
+
     var id = ID;
     var username = name;
-    var positionX = posX;
+    var position = posX;
+    // make json with the data that needs to be sent 
+    var json = { userID: id, userName: username, player_position: position };
+    // var json = { userID: "32", userName: "s", player_position: 600 };
 
-    // just for testing now: 
-    var json = { userID: id, userName: name, player_position: posX };
     $.ajax({
         type: 'POST',
         url: '../server/server_post.php',
@@ -217,11 +203,11 @@ function post(ID, name, posX) {
     })
         .done(function (data) { //  this data contains the response from server_post.php
             // show the response
-            alert("Posting worked.");
+            // alert(data);
         })
         .fail(function () {
             // just in case posting your form failed
-            alert("Posting failed.");
+            // alert("Posting failed.");
         });
 }
 
