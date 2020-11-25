@@ -30,17 +30,18 @@ function insert_or_update($conn, $user_id, $user_name, $player_pos)
 	}
 }
 
-// $_POST gives you the JSON object sent by script.js
-$json = $_POST; 
-// however, json_decode() gives an error
-// $data = json_decode($json, true); 
+ 
+
+$json = $_POST;
 echo "<pre>";
     print_r($json);
-echo "</pre>"; 
+echo "</pre>";
+// $_POST gives you the JSON object sent by script.js 
 
 /* $json = file_get_contents('php://input');
 var_dump($json);
 
+>>>>>>> 8e460a74b4ff595a4e674910aa733fe16afbc6fc
 //echo json_last_error_msg();
 
 //calling function
