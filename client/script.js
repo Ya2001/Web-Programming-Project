@@ -1,5 +1,10 @@
 // const { send } = require("process");
 
+
+
+//testing post
+post(101,"asdjkadj",763);
+
 // if client is on phone, switch to mobile view
 var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 
