@@ -198,12 +198,31 @@ function get() {
      }); */
 }
 
-// todo: make function to send data to server.php to write it to the database
 // function to send the information of every player to the database
-/* function post() {
-    var username = "Laura";
-    var
-} */
+// function to send the information of every player to the database
+function post(ID, name, posX) {
+    // information to post
+    var id = ID;
+    var username = name;
+    var positionX = posX;
+
+    var json = { userID: 14, userName: "lascha", player_position: 200 };
+
+    $.ajax({
+        type: 'POST',
+        url: 'server_post.php',
+        data: json
+    })
+        .done(function (data) {
+            // show the response
+            alert("Posting worked");
+        })
+        .fail(function () {
+            // just in case posting your form failed
+            alert("Posting failed.");
+        });
+}
+
 
 // function to create new players 
 function createNewPlayer(ID, name) {
