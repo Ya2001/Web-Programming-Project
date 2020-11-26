@@ -14,9 +14,25 @@
     <div class="layer">
         <div id="message">
             <h1>Game Over :(</h1>
-            <p>Your current score: 30 P</p>
+            <p id="msg"></p>
+            <script>
+                var r = Math.floor((Math.random() * 3) + 1);
+                var text = document.getElementById("msg");
+                if (r == 1)
+                {
+                    text.innerHTML = "Your score:  Not too bad.";
+                }
+                else if (r == 2)
+                {
+                    text.innerHTML = "Your score:  Could be better.";
+                }
+                else
+                {
+                    text.innerHTML = "Your score:  Well....";
+                }
+            </script>
+            
             <div class="gameControls">
-                <button class="scoreboard">Scoreboard</button>
                 <button class="playAgain">Play Again</button>
             </div>
         </div>
