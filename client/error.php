@@ -21,6 +21,10 @@
             <p>Please make sure that your passwords match and your username is as unique as possible.</p>
             <div  class="controls">
                 <input class="login_again" type="submit" value="Login" name="login_again">
+                <script>
+                    var loginAgain = document.querySelector(".login_again");
+                    loginAgain.addEventListener("click", () => window.open("login_page.php", "_self"));
+                </script>
             </div>
         </div>
     </div>

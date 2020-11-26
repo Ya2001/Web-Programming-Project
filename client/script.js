@@ -3,10 +3,10 @@
 // if client is on phone, switch to mobile view
 var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 
+// opens the mobile version of it - this isn't finished though
 if (isMobile) {
     window.open("../client/mobile/landingPage.html", "_self");
 }
-
 
 // otherwise, we're on a computer: 
 // variable to track if start or stop was last clicked
@@ -90,9 +90,8 @@ function gameLoop() {
     // post this client's information to the database 
     post(thisPlayerName, positionX);
 
+    // update this client's position 
     update();
-
-    draw(character, positionX);
 
     /* the browser performs the callback function on its own time: the browser takes care of picking a suitable fps
     (= frame per second) for the device it is running on (usually about 60fps). */
@@ -122,14 +121,9 @@ function update() {
             positionX = left + MOVEMENT_SPEED + "px";
         }
     }
+    character.style.left = positionX;
 }
 
-// update the graphics
-function draw(character, positionX) {
-    if (character != 0) {
-        character.style.left = positionX;
-    };
-}
 
 // getting information from the database
 function get() {
@@ -180,6 +174,7 @@ function get() {
     }
 }
 
+// function to check if dbPlayer is in the array of existingPlayers
 function inExistingPlayers(existingPlayers, dbPlayer) {
     for (var i = 0; i < existingPlayers.length; i++) {
         if (existingPlayers[i] == dbPlayer) {
@@ -190,22 +185,20 @@ function inExistingPlayers(existingPlayers, dbPlayer) {
 }
 
 // function to send the information of every player to the database
-// function to send the information of every player to the database
 function post(name, posX) {
-
+    // json object with username and positionX
     var json = { "userName": name, "player_position": posX };
+    // ajax POST
     $.ajax({
         type: 'POST',
         url: '../server/server_post.php',
         data: json
     })
-        .done(function (data) { //  this data contains the response from server_post.php
-            // show the response
-            //alert("Posting worked.");
+        .done(function (data) { // this data contains the response from server_post.php
+            // alert("Posting worked.");
         })
         .fail(function () {
-            // just in case posting your form failed
-            //alert("Posting failed.");
+            // alert("Posting failed.");
         });
 }
 
@@ -230,8 +223,6 @@ function createNewPlayer(name) {
     document.getElementById("players").appendChild(newPlayer);
     // appending the newPlayerName p to the newPlayer div
     newPlayer.appendChild(newPlayerName);
-
-    return newPlayer;
 }
 
 
@@ -274,10 +265,8 @@ function obstacles() {
 function detectCollision() {
     collisionID = setInterval(function () {
         var cLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-        var cRight = parseInt(window.getComputedStyle(character).getPropertyValue("right"));
 
         var oLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue("left"));
-        var oRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("right"));
         var oBottom = parseInt(window.getComputedStyle(obstacle).getPropertyValue("bottom"));
         var oWidth = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
         var oHeight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
@@ -290,23 +279,4 @@ function detectCollision() {
             }
         }
     }, 50);
-}
-
-
-// Message to print when player hits an obstacle. This depends on whether they won or lost the game//
-function gameOver(message) {
-    gameIsOn = false;
-    setTimeout(printEndGameMessage(message, false));
-}
-function gameWin(message) {
-    gameIsOn = false;
-    setTimeout(printEndGameMessage(message, true));
-}
-function printEndGameMessage(message, gameWon) {
-    if (gameWon) {
-        alert(message);
-    }
-    else {
-        alert("Game Over \n" + message);
-    }
 }
