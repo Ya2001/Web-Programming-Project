@@ -1,80 +1,124 @@
-.login_page
-{
-	background-color: black;
-	font-family:sans-serif; ;
+/* game-specific variables like colours & sizes */
+:root {
+    --accent-colour-dblue: #264653; 
+    --accent-colour-blue: #2a9d8f; 
+    --font: 'Impact';
+}
 
+/* removing default margin and padding */ 
+* {
+	margin: 0; 
+	padding: 0; 	
+}
+
+body {
+	font-family: Impact, Haettenschweiler, sans-serif;
+	background-color: black;
+	flex-flow: column wrap;
+}
+
+/* style for logo */ 
+.container {
+	width: 100%;
+    display: flex;
+}
+
+.logo {
+    margin: 2vw; 
+    padding: 1vw 2vw; 
+    border: 0.2vw solid white; 
+    border-radius: 50px;
+}
+
+.logo h1 {
+	color: white;
+    font-size: 2vw;
+	text-shadow: 0.09em 0.1em var(--accent-colour-dblue); 
+}
+
+/* style for login & register */
+.content-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+    justify-content: center;
+}
+
+.login {
+	margin: 2vw; margin-left: 4vw; margin-top: 0; 
+	width: 40%;
+	padding: 1.5vw; padding-left: 4vw;
+    color: white;  
+    text-align: left; 
+    background-color: rgb(255, 255, 255, 0.3);
+    font-family: var(--font);
+    border: 3px dashed var(--accent-colour-dblue);
 }
 
 .register
 {
-	float: right;
-	margin-top: 60px;
-	margin-right: 40vh;
-	color: white;
+	margin: 2vw; margin-right: 4vw; margin-top: 0;    
+	width: 40%;
+	padding: 1.5vw; padding-left: 4vw; 
+    color: white;  
+    text-align: left; 
+    background-color: rgb(255, 255, 255, 0.3);
+    font-family: var(--font);
+    border: 3px dashed var(--accent-colour-dblue);
 }
 
-.login
-{
-	float: left;
-	margin-top: 60px;
-	margin-left: 33vh;
-	color: white;
-}
-
-.vertical { 
-    border-right: 3px solid white; 
-    height: 70vh; 
-    position: absolute;
-    margin-left: 100vh;
-    margin-top: 100px;
-        }
 
 #login_page_text
 {
-	color: green; 
-	font-size: 30px;
+	color: var(--accent-colour-blue); 
+	font-size: 2vw;
 }
 
 
-.form_field{
-
-	margin-bottom: 40px;
-	width: 250px;
-	border-radius: 12px;
-	font-size: 20px;
-	height: 35px;
-}
-
-#uname_text
+.form_field
 {
-	font-size: 30px;
+	margin-bottom: 3vw; margin-top: 0.3vw; 
+	width: 70%;
+	height: 2vw;
+	font-size: 1.3vw;
+	color: white;
+	border: none; 
+	background-color: transparent; 
+	border-bottom: 3px dashed var(--accent-colour-dblue);
 }
+
+.form_field:focus {
+	outline: none;
+}
+
 
 #main_text
 {
-	font-size: 70px;
+	font-size: 4.5vw; 
+	margin-bottom: 2vw; 
 }
-#submit_login
+
+#submit_login, #submit_reg
 {
-	font-size: 20px;
-	background-color: #10F75D;
-	width: 200px;
-	height: 50px;
-	position: absolute;
-	margin-left: 140px;
-	margin-top: 10px;
-	border-radius: 12px;
-	font-weight: bold;
+	border-radius: 50px; 
+	width: 10vw;
+	height: 3vw;
+    background-color: transparent; 
+    border: 0.15em solid white; 
+    font-family: var(--font);
+    font-size: 1.5em; 
+    font-weight: bold;
+	color: white;  
+	margin-left: 30%;
 }
-#submit_reg
-{
-	font-size: 20px;
-	background-color: #10F75D;
-	width: 200px;
-	height: 50px;
-	position: absolute;
-	margin-left: 140px;
-	margin-top: 10px;
-	border-radius: 12px;
-	font-weight: bold;
+#submit_login:hover, #submit_reg:hover {
+    border-color: var(--accent-colour-blue);; 
+    color: var(--accent-colour-blue);; 
+}
+#submit_login:focus, #submit_reg:focus {
+    /* gets rid of the default border that stays around the button once it's pressed */
+    outline: none; 
+    background-color: var(--accent-colour-dblue); 
+    color: white;
+    border-color: var(--accent-colour-dblue);
 }

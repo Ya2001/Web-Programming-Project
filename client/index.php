@@ -6,7 +6,7 @@ https://www2.macs.hw.ac.uk/~bk42/mm0/
 -->
 <!-- include file with connection -->
 <?php
-	include("../server/connect.php");
+	include("../server/connect.inc.php");
 	include("login.php");
 ?>
 <!-- start session -->
@@ -28,7 +28,6 @@ https://www2.macs.hw.ac.uk/~bk42/mm0/
 </head>
 
 <body>
-
 	<div class="controls">
 		<div class="gameControls">
 			<button class="startButton">start</button>
@@ -43,29 +42,24 @@ https://www2.macs.hw.ac.uk/~bk42/mm0/
 
 
 	<div class="game">
-		<div id="obstacle">
-
+		<!-- obstacle div -->
+		<div id="obstacle"></div>
+		
+		<!-- div for all players --> 
+		<div id="players">
+			<div id="0" class="character">
+				<p id="playerName">
+					<?php 
+						if (isset($_SESSION["username"])) {
+							echo $_SESSION["username"]; 
+						} else {
+							echo "Guest"; 
+						}
+					?>
+				</p>
+			</div>
 		</div>
-		<div id="character">
-			<p id="playerName">
-				<?php 
-					if (isset($_SESSION["username"])) {
-						echo $_SESSION["username"]; 
-					} else {
-						echo "Guest"; 
-					}
-
-					/* $sql = "SELECT * FROM `users` WHERE userID = 1"; 
-					$user = mysqli_query($conn, $sql); 
-					$username = $user->fetch_array()['userName'] ?? '';
-					if (isset ($username)) {
-						echo $username; 
-					} else {
-						echo "Guest"; 
-					} */
-				?>
-			</p>
-		</div>
+			
 	</div>
 
 

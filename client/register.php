@@ -1,20 +1,19 @@
 <?php
 //build connection,get the data
 session_start();
-$error_reg = "";
 
 if(isset($_POST['submit_reg']))
 	{
 		if($_POST['pwd_reg_2'] !== $_POST['pwd_reg_1'])
 		{
-			$error_reg = "Passwords did not match, please go back and try again.";
-			echo $error_reg;
+			// their passwords didn't match
+			header("Location: error.php");
 		}
 
 	else
  	{
 		//connection
-		include("../server/connect.php");
+		include("../server/connect.inc.php");
 
 		//getting the data -escaping sql injection
 		$uname_reg = mysqli_real_escape_string($conn, $_POST["uname_reg"]);
@@ -32,7 +31,7 @@ if(isset($_POST['submit_reg']))
 										VALUES (NULL, '$uname_reg', '$hashed_pwd');");
 
 		//getting affected rows, as username is set to unique in database,
-		//if an existing username if registered there is no change in the database
+		//if an existing username is registered there is no change in the database
 		$affected = mysqli_affected_rows($conn);
 		if ($affected > 0 )
 		{
@@ -43,10 +42,9 @@ if(isset($_POST['submit_reg']))
 			mysqli_close($conn); // Closing connection
 		}
 		else
+		// the username exists already
 		{
-			$error_reg = "Username already exists, please go back and try again.";
-			echo $error_reg;
-			//header("Location: connect.php?username_exists");
+			header("Location: error.php");
 		}
 
 	}

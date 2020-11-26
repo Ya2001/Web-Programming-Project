@@ -1,13 +1,10 @@
-//change protocol to https
-if (location.protocol !== "https:") {
-  location.protocol = "https:";
-}
+// const { send } = require("process");
 
 // if client is on phone, switch to mobile view
-var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());        
-console.log(isMobile); 
+var isMobile = /iphone|ipod|ipa|android|blackberry|opara mini|opera mobi|skyfire|meamo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(navigator.userAgent.toLowerCase());
 
-if (isMobile){
+// opens the mobile version of it - this isn't finished though
+if (isMobile) {
     window.open("../client/mobile/landingPage.html", "_self");
 }
 
@@ -35,12 +32,15 @@ var oneVW = document.documentElement.clientWidth / 100; // oneVW in pixels (on m
 var intervalID;
 
 // variables for the character
-var character = document.getElementById("character");
+var character = document.getElementById("0");
+var thisPlayerName = character.childNodes[1].innerHTML.trim();
+character.id = thisPlayerName; // set the character's id to their unique username
 var charWidth = 5; // vw
 var charHeight = 5; // vw
 var charSize = charWidth * charHeight;
 var charWidthPx = character.clientWidth; // pixels
 var charHeightPx = character.clientHeight; // pixels
+
 
 // variables for the obstacle
 var obstacle = document.getElementById("obstacle");
@@ -84,8 +84,14 @@ function start() {
 }
 
 function gameLoop() {
+    // get other players' information from database
+    get();
+
+    // post this client's information to the database 
+    post(thisPlayerName, positionX);
+
+    // update this client's position 
     update();
-    draw(positionX);
 
     /* the browser performs the callback function on its own time: the browser takes care of picking a suitable fps
     (= frame per second) for the device it is running on (usually about 60fps). */
@@ -101,6 +107,8 @@ function gameLoop() {
 function update() {
     // start collision detection 
     detectCollision();
+
+    // position X
     var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
 
     if (keyPresses.ArrowLeft) {
@@ -113,11 +121,108 @@ function update() {
             positionX = left + MOVEMENT_SPEED + "px";
         }
     }
+    character.style.left = positionX;
 }
 
-// update the graphics
-function draw(positionX) {
-    character.style.left = positionX;
+
+// getting information from the database
+function get() {
+    // call ajax 
+    var ajax = new XMLHttpRequest();
+    var method = "GET";
+    var url = "../server/server_get.php";
+    var asynchronous = true;
+
+    ajax.open(method, url, asynchronous);
+    // sending ajax request
+    ajax.send();
+
+    // receiving response from server.php
+    ajax.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // converting JSON back to array 
+            // this is all the positions in JSON format from the database
+            var data = JSON.parse(this.responseText);
+
+            // creates an array with all existing players' userIDs (userIDs in string)
+            var divs = document.getElementsByClassName("character");
+            var existingPlayers = [];
+            for (var i = 0; i < divs.length; i++) {
+                existingPlayers.push(divs[i].id);  // existingPlayers names
+            }
+
+            // goes through all the data of the database and gets the name and position X of the current one 
+            for (var i = 0; i < data.length; i++) {
+                var name = data[i].userName; // name of the current db player
+                var positionX = data[i].player_position; // position of the current db player
+
+                // make sure to not update this client's player position in here 
+                if (name != thisPlayerName) {
+                    // if the db player doesn't have a div yet, create one
+                    if (!inExistingPlayers(existingPlayers, name)) {
+                        // create player div
+                        createNewPlayer(name);
+                        // add the new player to the existing players
+                        existingPlayers.push(name);
+                    }
+
+                    // update the position 
+                    document.getElementById(name).style.left = positionX;
+                }
+            }
+        }
+    }
+}
+
+// function to check if dbPlayer is in the array of existingPlayers
+function inExistingPlayers(existingPlayers, dbPlayer) {
+    for (var i = 0; i < existingPlayers.length; i++) {
+        if (existingPlayers[i] == dbPlayer) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// function to send the information of every player to the database
+function post(name, posX) {
+    // json object with username and positionX
+    var json = { "userName": name, "player_position": posX };
+    // ajax POST
+    $.ajax({
+        type: 'POST',
+        url: '../server/server_post.php',
+        data: json
+    })
+        .done(function (data) { // this data contains the response from server_post.php
+            // alert("Posting worked.");
+        })
+        .fail(function () {
+            // alert("Posting failed.");
+        });
+}
+
+
+// function to create new players 
+function createNewPlayer(name) {
+    // creating a new div 
+    var newPlayer = document.createElement("div");
+    // setting the div's id 
+    newPlayer.id = name;
+    // setting the div's class
+    newPlayer.className = "character";
+
+    // creating a new p for playername 
+    var newPlayerName = document.createElement("p");
+    // setting the p's id
+    newPlayerName.id = "playerName";
+    // setting p's content to the name
+    newPlayerName.innerHTML = name;
+
+    // appending the new div to the parent div 
+    document.getElementById("players").appendChild(newPlayer);
+    // appending the newPlayerName p to the newPlayer div
+    newPlayer.appendChild(newPlayerName);
 }
 
 
@@ -160,10 +265,8 @@ function obstacles() {
 function detectCollision() {
     collisionID = setInterval(function () {
         var cLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-        var cRight = parseInt(window.getComputedStyle(character).getPropertyValue("right"));
 
         var oLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue("left"));
-        var oRight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("right"));
         var oBottom = parseInt(window.getComputedStyle(obstacle).getPropertyValue("bottom"));
         var oWidth = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
         var oHeight = parseInt(window.getComputedStyle(obstacle).getPropertyValue("width"));
@@ -176,23 +279,4 @@ function detectCollision() {
             }
         }
     }, 50);
-}
-
-
-// Message to print when player hits an obstacle. This depends on whether they won or lost the game//
-function gameOver(message) {
-    gameIsOn = false;
-    setTimeout(printEndGameMessage(message, false));
-}
-function gameWin(message) {
-    gameIsOn = false;
-    setTimeout(printEndGameMessage(message, true));
-}
-function printEndGameMessage(message, gameWon) {
-    if (gameWon) {
-        alert(message);
-    }
-    else {
-        alert("Game Over \n" + message);
-    }
 }

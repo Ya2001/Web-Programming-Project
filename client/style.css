@@ -31,6 +31,10 @@ body {
     background-color: black;  
 }
 
+#success {
+    color: white;
+}
+
 /* **************************************************** canvas *************************************************** */
 /* responsive div for the game-area
 to change the size, change at top under :root {}
@@ -47,7 +51,7 @@ overflow is hidden because everything outside this area isn't in the game anymor
 
 
 /* ***************************************************** player ************************************************** */
-#character {
+.character {
     width: var(--character-width);
     height: var(--character-width); 
     bottom: 1vw; 
@@ -160,5 +164,3 @@ overflow is hidden because everything outside this area isn't in the game anymor
         display: none;
     } 
 }  */
-
-

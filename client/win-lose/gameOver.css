@@ -1,8 +1,3 @@
-/* style inspo: https://www.smashingmagazine.com/2012/05/develop-a-one-of-a-kind-cssjs-based-game-portfolio/
-https://www.youtube.com/watch?v=RuLRsMN9KJQ
-
-*/
-
 /* game-specific variables like colours & sizes */
 :root {
     --canvas-width: 95vw; 
@@ -28,24 +23,46 @@ https://www.youtube.com/watch?v=RuLRsMN9KJQ
 body {
     height: 98%; 
     width: 100%; 
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     background-color: black; 
 }
 
 /* **************************************************** message ************************************************** */
+/* styling for the Game Over message and the logo */
 .layer {
-    width: 100%;
+    width: 100%; /* width and height should be 100% to span over the whole screen */
     height: 100%;
-    position: absolute;
-    z-index: 2;
-    display: flex; 
+    position: absolute; 
+    z-index: 2; /* increase the z-index to lift this layer above the background */
+    display: flex; /* set the display property to flexbox */ 
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+}
+
+/* style for logo */ 
+.logo {
+    margin-top: 2vw; margin-left: 2vw;
+    padding: 1vw 2vw; 
+    border: 0.2vw solid white; 
+    border-radius: 50px;
+    z-index: 300;
+}
+.logo h1 {
+    color: white;
+    font-size: 2vw;
+    text-shadow: 0.09em 0.1em var(--accent-colour-dblue); 
 }
 
 #message {
     color: white; 
-    margin: auto; 
+    margin: auto; margin-top: 0;
     padding-top: 5vh; 
     height: 70vh; 
-    width: 70vw; 
+    width: 60vw; 
     text-align: center; 
     background-color: rgb(255, 255, 255, 0.3);
     font-family: var(--font);
@@ -68,7 +85,7 @@ body {
     height: 10vh;
     margin-top: 15vh; 
 }
-.playAgain, .scoreboard { 
+.playAgain{ 
     border-radius: 50px; 
     width: 10vw;
     background-color: transparent; 
@@ -78,11 +95,11 @@ body {
     font-weight: bold;
     color: white;  
 }
-.playAgain:hover, .scoreboard:hover {
+.playAgain:hover{
     border-color: var(--accent-colour-dblue);; 
     color: var(--accent-colour-dblue);; 
 }
-.playAgain:focus, .scoreboard:focus {
+.playAgain:focus{
     /* gets rid of the default border that stays around the button once it's pressed */
     outline: none; 
     background-color: var(--accent-colour-dblue); 
@@ -128,5 +145,3 @@ overflow is hidden because everything outside this area isn't in the game anymor
     z-index: -1; 
     position: absolute;
 }
-
-
