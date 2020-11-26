@@ -162,15 +162,19 @@ function get() {
                 var name = data[i].userName; // name of the current db player
                 var positionX = data[i].player_position; // position of the current db player
 
-                if (!inExistingPlayers(existingPlayers, name)) {
-                    // create player
-                    createNewPlayer(name);
-                    // add the new player to the existing players
-                    existingPlayers.push(name);
-                }
+                // make sure to not update this client's player position in here 
+                if (name != thisPlayerName) {
+                    // if the db player doesn't have a div yet, create one
+                    if (!inExistingPlayers(existingPlayers, name)) {
+                        // create player div
+                        createNewPlayer(name);
+                        // add the new player to the existing players
+                        existingPlayers.push(name);
+                    }
 
-                // update the position 
-                document.getElementById(name).style.left = positionX;
+                    // update the position 
+                    document.getElementById(name).style.left = positionX;
+                }
             }
         }
     }
