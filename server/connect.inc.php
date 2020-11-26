@@ -12,7 +12,7 @@
 	{
 		die("Connection failed: " . mysqli_connect_error());
 	}
-	echo "Connected successfully";
+	//echo "Connected successfully";
 
 	// Creating a database 
 	$db = mysqli_query($conn, "CREATE DATABASE IF NOT EXISTS users_db");
