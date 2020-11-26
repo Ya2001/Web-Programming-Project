@@ -85,7 +85,7 @@ function start() {
 
 function gameLoop() {
     // get other players' information from database
-    // get();
+    get();
 
     // post this client's information to the database 
     post(thisPlayerName, positionX);
