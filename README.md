@@ -2,10 +2,17 @@
 
 ## Content
 
+- [How to Use and Install](#how-to-use-and-install)
 - [Contributors](#contributors)
 - [Style and Code standards](#style-and-code-standards)
 - [Progress / Documentation](#progress-and-documentation)
 
+
+## How to Use and Install
+1. [Download XAMMP](https://www.apachefriends.org/download.html)
+2. Start the Apache and MySQL server in XAMMP
+3. Clone project into xampp/htdocs folder
+4. Go to: http://localhost/Web-Programming-Project/client/index.php in the browser
 
 ## Contributors
 [Akshay Venkataramana](https://github.com/Ya2001)  
