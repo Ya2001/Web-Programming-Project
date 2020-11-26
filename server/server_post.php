@@ -7,13 +7,6 @@ include("connect.inc.php");
 $user_name = $_POST['userName']; 
 $player_pos = $_POST['player_position']; 
 
-/* echo gettype($user_id);
-echo gettype($user_name); 
-echo gettype($player_pos);  */
-/* echo $user_id; 
-echo $user_name; 
-echo $player_pos;  */
-
 // echo json_last_error_msg(); 
 
 insert_or_update($conn, $user_name, $player_pos); 
