@@ -33,20 +33,14 @@ var intervalID;
 
 // variables for the character
 var character = document.getElementById("0");
-
-
-
-var uniqueID = Date.now(); //  built-in function which allows us to get the number of miliseconds elapsed since January 1, 1970
-
-character.id = "" + uniqueID; // set the character's id to the unique id generated above 
-character = document.getElementById(uniqueID); // update the character variable
+var thisPlayerName = character.childNodes[1].innerHTML.trim();
+character.id = thisPlayerName; // set the character's id to their unique username
 var charWidth = 5; // vw
 var charHeight = 5; // vw
 var charSize = charWidth * charHeight;
 var charWidthPx = character.clientWidth; // pixels
 var charHeightPx = character.clientHeight; // pixels
 
-var thisPlayerName = document.getElementById(uniqueID).childNodes[1].innerHTML.trim();
 
 // variables for the obstacle
 var obstacle = document.getElementById("obstacle");
@@ -90,12 +84,14 @@ function start() {
 }
 
 function gameLoop() {
-    // get other players' information
-    
-    get();
+    // get other players' information from database
+    // get();
+
+    // post this client's information to the database 
     post(thisPlayerName, positionX);
 
     update();
+
     draw(character, positionX);
 
     /* the browser performs the callback function on its own time: the browser takes care of picking a suitable fps
@@ -137,13 +133,6 @@ function draw(character, positionX) {
 
 // getting information from the database
 function get() {
-
-    /*     var queryString = {
-            'userID': ID,
-            'userName': uname,
-            'player_position': positionX
-        }; */
-
     // call ajax 
     var ajax = new XMLHttpRequest();
     var method = "GET";
@@ -161,59 +150,46 @@ function get() {
             // this is all the positions in JSON format from the database
             var data = JSON.parse(this.responseText);
 
-            // variable with all divs with class character 
+            // creates an array with all existing players' userIDs (userIDs in string)
             var divs = document.getElementsByClassName("character");
             var existingPlayers = [];
-            // creates an array with all existing players' userIDs (userIDs in string)
             for (var i = 0; i < divs.length; i++) {
-                existingPlayers.push(divs[i].id);
+                existingPlayers.push(divs[i].id);  // existingPlayers names
             }
 
-            // loping through the data 
-            for (var a = 0; a < data.length; a++) {
-                var name = data[a].userName;
-                var positionX = data[a].player_position;
+            // goes through all the data of the database and gets the name and position X of the current one 
+            for (var i = 0; i < data.length; i++) {
+                var name = data[i].userName; // name of the current db player
+                var positionX = data[i].player_position; // position of the current db player
 
-                // if not yet made, make new div for the database players
-                for (var i = 0; i < existingPlayers.length; i++) {
-                    if (ID != existingPlayers[i]) {
-                        // if the id isn't in the database yet, create new player 
-                        var np = createNewPlayer(ID, name);
-                        // update their position 
-                        draw(np, positionX);
-                        // if we're here, the player already had a div, so only update his position
-                    } else {
-                        draw(document.getElementById(existingPlayers[a]), positionX);
-                    }
+                if (!inExistingPlayers(existingPlayers, name)) {
+                    // create player
+                    createNewPlayer(name);
+                    // add the new player to the existing players
+                    existingPlayers.push(name);
                 }
+
+                // update the position 
+                document.getElementById(name).style.left = positionX;
             }
         }
     }
-    /*  $.ajax({
-         type: "POST", // we're sending data, so make a POST
-         url: "server.php",
-         data: queryString,
-         cache: false, // dunno what cache is doing
- 
-         success: function (data) {
-             var dataResult = JSON.parse(data);
-             if (dataResult.statusCode == 200) {
-                 $("#success").show();
-                 $('#success').html('Data added successfully !');
-             }
-             else if (dataResult.statusCode == 201) {
-                 alert("Error occured !");
-             }
- 
-         }
-     }); */
+}
+
+function inExistingPlayers(existingPlayers, dbPlayer) {
+    for (var i = 0; i < existingPlayers.length; i++) {
+        if (existingPlayers[i] == dbPlayer) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // function to send the information of every player to the database
 // function to send the information of every player to the database
 function post(name, posX) {
 
-    var json = {"userName": name, "player_position": posX };
+    var json = { "userName": name, "player_position": posX };
     $.ajax({
         type: 'POST',
         url: '../server/server_post.php',
@@ -231,11 +207,11 @@ function post(name, posX) {
 
 
 // function to create new players 
-function createNewPlayer(ID, name) {
+function createNewPlayer(name) {
     // creating a new div 
     var newPlayer = document.createElement("div");
     // setting the div's id 
-    newPlayer.id = ID;
+    newPlayer.id = name;
     // setting the div's class
     newPlayer.className = "character";
 
@@ -249,7 +225,7 @@ function createNewPlayer(ID, name) {
     // appending the new div to the parent div 
     document.getElementById("players").appendChild(newPlayer);
     // appending the newPlayerName p to the newPlayer div
-    document.getElementById(ID).appendChild(newPlayerName);
+    newPlayer.appendChild(newPlayerName);
 
     return newPlayer;
 }
