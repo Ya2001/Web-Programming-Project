@@ -1,0 +1,92 @@
+/* game-specific variables like colours & sizes */
+:root {
+    --accent-colour-dblue: #264653; 
+    --accent-colour-blue: #2a9d8f; 
+    --font: 'Impact';
+}
+
+/* removing default margin and padding */
+* {
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    background-color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    flex-flow: column wrap;
+}
+
+/* style for logo */ 
+.container {
+    width: 100%;
+    display: flex;
+}
+
+.logo {
+    margin: 2vw; 
+    padding: 1vw 2vw; 
+    border: 0.2vw solid white; 
+    border-radius: 50px;
+}
+
+.logo h1 {
+    color: white;
+    font-size: 2vw;
+    text-shadow: 0.09em 0.1em var(--accent-colour-dblue); 
+}
+
+/* style for the message */
+.content-container {
+    width: 100%;
+    height: 30vw;
+    display: flex;
+    justify-content: center;
+}
+.content {
+    padding: 3vw; 
+    width: 60vw;
+    color: white;  
+    text-align: center; 
+    background-color: rgb(255, 255, 255, 0.3);
+    font-family: var(--font);
+    border: 3px dashed var(--accent-colour-dblue);
+}
+.content h1 {
+    font-size: 5.9vw; 
+    text-shadow: 0.08em 0.1em var(--accent-colour-dblue); 
+}
+
+.content p {
+    padding-top: 2vw; 
+    font-size: 2.5vw;
+}
+
+
+.controls {
+    justify-content: space-evenly; 
+    display: flex; 
+    height: 5vw;
+    margin-top: 5vw; 
+}
+.login_again { 
+    border-radius: 50px; 
+    width: 10vw;
+    background-color: transparent; 
+    border: 0.2vw solid white; 
+    font-family: var(--font);
+    font-size: 1.7vw; 
+    font-weight: bold;
+    color: white;  
+}
+.login_again:hover {
+    border-color: var(--accent-colour-blue);; 
+    color: var(--accent-colour-blue);; 
+}
+.login_again:focus {
+    /* gets rid of the default border that stays around the button once it's pressed */
+    outline: none; 
+    background-color: var(--accent-colour-dblue); 
+    color: white;
+    border-color: var(--accent-colour-dblue);
+}
