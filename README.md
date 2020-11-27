@@ -13,6 +13,7 @@
 2. Start the Apache and MySQL server in XAMMP
 3. Clone project into xampp/htdocs folder
 4. Go to: http://localhost/Web-Programming-Project/client/index.php in the browser
+5. For the online version just go to: https://dropguys.freecluster.eu/client/
 
 ## Contributors
 [Akshay Venkataramana](https://github.com/Ya2001)  
